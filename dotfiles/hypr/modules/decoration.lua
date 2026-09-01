@@ -28,10 +28,27 @@ local low_power = perf_flag("lowPowerMode")
 local no_blur   = low_power or perf_flag("disableBlur")
 local no_shadow = low_power or perf_flag("disableShadows")
 
+-- The print filter (ryoku/hyprland/shaders/), named in shell.json. This parse is
+-- what makes the choice survive a reload; the shell applies it live itself. Low
+-- power forces it off: it is a full-screen fragment pass every frame.
+local function shell_string(key)
+  local f = io.open(home .. "/.config/ryoku/shell.json", "r")
+  if not f then return nil end
+  local s = f:read("*a")
+  f:close()
+  return s:match('"' .. key .. '"%s*:%s*"([^"]*)"')
+end
+local shaders = { halftone = true, bone = true, onebit = true, vignette = true, grain = true }
+local shader_name = shell_string("screenShader")
+local screen_shader = ""
+if not low_power and shader_name and shaders[shader_name] then
+  screen_shader = home .. "/.config/hypr/shaders/" .. shader_name .. ".glsl"
+end
+
 hl.config({
   general = {
-    gaps_in                 = 1,
-    gaps_out                = 5,
+    gaps_in                 = 12,
+    gaps_out                = 18,
     border_size             = 2,
     layout                  = "dwindle",
     resize_on_border        = true,
@@ -48,6 +65,7 @@ hl.config({
     rounding_power   = 4,
     active_opacity   = 1,
     inactive_opacity = 0.94,
+    screen_shader    = screen_shader,
     shadow           = {
       enabled      = not no_shadow,
       range        = 45,
@@ -87,12 +105,6 @@ hl.layer_rule({
   match   = { namespace = "^ryoku-notifications$" },
   no_anim = true,
 })
-hl.layer_rule({
-  name         = "notifications-blur",
-  match        = { namespace = "^ryoku-notifications$" },
-  blur         = not no_blur,
-  ignore_alpha = 0.05,
-})
 -- ignore_alpha keeps the frost inside the card: the launcher's surface reserves
 -- margin for its shadow and a gap between the search row and the list, and
 -- without this the compositor blurs that whole transparent rectangle, which
@@ -100,13 +112,6 @@ hl.layer_rule({
 hl.layer_rule({
   name         = "launcher-blur",
   match        = { namespace = "^launcher$" },
-  blur         = not no_blur,
-  ignore_alpha = 0.05,
-})
-
-hl.layer_rule({
-  name         = "ryoku-panels-blur",
-  match        = { namespace = "^(ryoku-.*|quickshell)$" },
   blur         = not no_blur,
   ignore_alpha = 0.05,
 })
@@ -121,6 +126,30 @@ hl.layer_rule({
   match   = { namespace = "overview" },
   blur    = not no_blur,
   no_anim = true,
+})
+
+-- the keybind cheatsheet (qs -c keys, Super+K) is a full-screen layer-shell
+-- overlay: blur the desktop behind its dim scrim so the card reads on any
+-- wallpaper, and suppress Hyprland's own layer animation (QML owns the fade).
+hl.layer_rule({
+  name    = "ryoku-keys-blur",
+  match   = { namespace = "^ryoku-keys$" },
+  blur    = not no_blur,
+  no_anim = true,
+})
+-- the first-boot hint (qs -c keys-hint) is a small top-centre card on a clear
+-- full-width layer: blur only the card (ignore_alpha keeps the frost off the
+-- transparent surround) and let QML drive its slide-in.
+hl.layer_rule({
+  name    = "ryoku-keys-hint-noanim",
+  match   = { namespace = "^ryoku-keys-hint$" },
+  no_anim = true,
+})
+hl.layer_rule({
+  name         = "ryoku-keys-hint-blur",
+  match        = { namespace = "^ryoku-keys-hint$" },
+  blur         = not no_blur,
+  ignore_alpha = 0.05,
 })
 
 -- the wallpaper switcher (Super+W) is a translucent bottom-centre picker card on
@@ -139,16 +168,12 @@ hl.layer_rule({
   ignore_alpha = 0.05,
 })
 
--- The wallpaper rides the background layer: the awww image daemon and the
--- ryoku-livewall video daemon each map a surface there (mpvpaper/phonto on
--- boxes whose orphaned players predate livewall), and switching image<->live
--- maps one over the other. The global `layers` animation is `popin 90%`, which
--- scale-pops a fullscreen wallpaper surface in/out and reads as a flicker.
--- Override it to a pure `fade` for the wallpaper namespaces so the surfaces
--- crossfade instead (the video fades in over the image, and out to reveal it),
--- matching the switcher's own fade.
+-- Wallpaper surfaces (the in-shell backdrop ryoku-wallpaper and the ryoku-livewall
+-- video, plus legacy mpvpaper/phonto/awww) ride the background layer. The global
+-- `layers` popin scale-pops them and reads as a flicker, so fade them instead:
+-- image<->live crossfades cleanly.
 hl.layer_rule({
   name      = "wallpaper-crossfade",
-  match     = { namespace = "^(awww-daemon|ryoku-livewall|mpvpaper|phonto)$" },
+  match     = { namespace = "^(ryoku-wallpaper|awww-daemon|ryoku-livewall|mpvpaper|phonto)$" },
   animation = "fade",
 })

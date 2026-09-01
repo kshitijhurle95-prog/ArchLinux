@@ -5,7 +5,11 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets,pkcs11")
     hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 24")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
-    hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark")
+    -- adw-gtk3-dark, not Adwaita-dark: stock Adwaita GTK3 hardcodes its colours,
+    -- so the palette Ryoku generates barely reaches GTK3 apps, while adw-gtk3
+    -- derives its rules from the named colours we already emit. The daemon owns
+    -- accent-color; do not set it here.
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark")
     -- Folder icons follow the wallpaper accent: ryoku-cmd-folders builds a small
     -- Papirus-Dark overlay under ~/.local/share/icons tinted to the palette and
     -- selects it. Rebuilt on every palette change by the shell's matugen hook.
@@ -52,6 +56,9 @@ hl.on("hyprland.start", function()
     -- no OpenRGB at all, until lighting is on with a device adopted.
     hl.exec_cmd("command -v ryoku-hub >/dev/null 2>&1 && ryoku-hub lighting apply")
     hl.exec_cmd("command -v ryoku-mic >/dev/null 2>&1 && ryoku-mic")
+    -- Night light: hyprsunset is a plain process a reboot drops, so restore the
+    -- warm screen when the user left it on. A no-op when it was off or absent.
+    hl.exec_cmd("command -v ryoku-cmd-nightlight >/dev/null 2>&1 && ryoku-cmd-nightlight restore")
     -- Booted into a btrfs snapshot from the Limine menu: offer the one-click
     -- restore. limine-snapper-sync ships this as an XDG autostart entry, which
     -- Hyprland never runs (no autostart manager), so start it here; on a normal
@@ -87,5 +94,20 @@ hl.on("hyprland.start", function()
     end
     if seen_version < welcome_version then
         hl.exec_cmd("flock -n \"${XDG_RUNTIME_DIR:-/tmp}/ryoku-welcome.lock\" qs -c welcome && mkdir -p '" .. welcome_state .. "' && printf '" .. welcome_version .. "' > '" .. welcome_state .. "/welcome-seen'")
+    end
+
+    -- First-boot keyboard hint. A one-shot toast pointing new users at Super+K,
+    -- shown exactly once ever: the marker is written the first time this runs and
+    -- checked forever after, so it never returns on a relogin, reboot or update
+    -- (unlike the versioned welcome flag above). The marker is written before the
+    -- async launch, so a reboot before the user dismisses the toast cannot bring
+    -- it back. It rides the overlay layer above the welcome tour and stays until
+    -- its X is clicked.
+    local keys_hint_seen = welcome_state .. "/keys-hint-seen"
+    local kh = io.open(keys_hint_seen, "r")
+    if kh then
+        kh:close()
+    else
+        hl.exec_cmd("mkdir -p '" .. welcome_state .. "' && printf 'seen' > '" .. keys_hint_seen .. "' && flock -n \"${XDG_RUNTIME_DIR:-/tmp}/ryoku-keys-hint.lock\" qs -c keys-hint")
     end
 end)

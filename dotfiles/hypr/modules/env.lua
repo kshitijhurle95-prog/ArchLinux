@@ -65,14 +65,14 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 -- injects that path (ipc/daemon.go setupQmlImportPath) -- so the configs it
 -- supervises resolve the imports while `qs -c hub` from a keybind does not.
 -- Set it for the session so both paths behave the same.
-hl.env("QML_IMPORT_PATH",  os.getenv("HOME") .. "/.local/lib/qt6/qml")
+hl.env("QML_IMPORT_PATH",  os.getenv("HOME") .. "/.local/lib/qt6/qml:" .. os.getenv("HOME") .. "/.config/quickshell:/usr/lib/qt6/qml")
 
 -- The shell daemon registers as the PolicyKit1 authentication agent, so an
 -- administrator password is asked for on a Ryoku island instead of the stock
 -- agent's grey dialog. The daemon reads it at startup; without it the daemon
 -- leaves the slot alone.
 hl.env("RYOKU_POLKIT_AGENT", "1")
-hl.env("QML2_IMPORT_PATH", os.getenv("HOME") .. "/.local/lib/qt6/qml")
+hl.env("QML2_IMPORT_PATH", os.getenv("HOME") .. "/.local/lib/qt6/qml:" .. os.getenv("HOME") .. "/.config/quickshell:/usr/lib/qt6/qml")
 
 -- deploy.sh builds the ryoku-* binaries into ~/.local/bin; put it first so the
 -- session runs them, not the package's /usr/bin copies. Inert on a package

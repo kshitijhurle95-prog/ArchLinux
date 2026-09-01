@@ -1,23 +1,16 @@
--- optional(mod): load a drop-in only when its file exists and has valid syntax.
--- Hyprland intercepts syntax errors inside require() into its error banner even
--- under pcall(). Pre-validating with loadfile() prevents broken/torn files from
--- triggering "Your config has errors" banners on boot, while auto-healing
--- hardware drop-ins like monitors.lua immediately.
+-- optional(mod): load a drop-in only when its file exists. most of these are
+-- never shipped (user overrides, hub and theme output), and hyprland reports
+-- even a pcall'd require() of a missing module in the config-error overlay,
+-- so a fresh home flashed "Your config has errors" on first boot. probe the
+-- path first; a file that exists but is torn or corrupt still degrades via
+-- pcall instead of emergency mode, and ryoku doctor repairs it.
 local function optional(mod)
-    local path = package.searchpath and package.searchpath(mod, package.path)
-    if package.searchpath == nil or path then
-        if path then
-            local chunk, err = loadfile(path)
-            if not chunk then
-                print("ryoku: optional config module '" .. mod .. "' syntax error: " .. tostring(err))
-                if mod == "monitors" then
-                    os.execute("command -v ryoku-monitor >/dev/null 2>&1 && ryoku-monitor autoscale >/dev/null 2>&1")
-                end
-                return
-            end
-        end
+    if package.searchpath == nil or package.searchpath(mod, package.path) then
         local ok, err = pcall(require, mod)
         if not ok then
+            -- degrade, but say so: a syntax error in a hand-edited drop-in
+            -- (user.lua, monitors_user.lua) otherwise vanishes without a trace
+            -- and the user is left guessing why their edits do nothing.
             print("ryoku: optional config module '" .. mod .. "' failed to load: " .. tostring(err))
         end
     end
@@ -47,7 +40,7 @@ require("modules.animations")
 require("modules.binds")
 require("modules.resize")
 require("modules.record")
--- require("modules.ryoshot") -- Disabled in favor of 43PR screenshot capture suite
+require("modules.ryoshot")
 require("modules.lid")
 require("modules.window_rules")
 require("modules.fullscreen")
