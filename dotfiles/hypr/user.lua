@@ -1,184 +1,456 @@
 -- ~/.config/hypr/user.lua
--- User custom Hyprland configuration (Clean Ryoku defaults + Fullscreen/Maximize & Tools)
+-- 43PR × Dusky Linux Master Enhancements for Ryoku Shell
+-- All features from 43PR/dotfiles + dusklinux/dusky ported to Ryoku
 
 local home = os.getenv("HOME")
 local user_scripts = home .. "/user_scripts/"
 local mainMod = "SUPER"
 
 -- ═══════════════════════════════════════════════════════════════════════════
--- 1. FULLSCREEN, MAXIMIZE & LIVE WALLPAPER / VISUALIZER AUTO-PAUSE (0ms RESUME)
+-- 0. DISABLE RYOKU DEFAULTS (Capture, Launcher, File Manager, Brand)
+--    These unbinds remove Ryoku's built-in modules so 43PR versions replace them.
 -- ═══════════════════════════════════════════════════════════════════════════
--- F11: Fully maximize window (occupies entire screen, 100% opacity, Esc/F11 restores)
--- Shift+F11: Pure fullscreen (mode 0, 100% opacity, Esc/Shift+F11 restores)
--- Esc: Dynamically bound ONLY when active window is fullscreen/maximized
--- Live wallpaper and visualizer pause in fullscreen/maximize and resume with 0ms delay on exit
 
-local fs_floating_map = {}
-local escape_is_bound = false
-local livewall_paused = false
+-- Unbind Ryoku's built-in capture (ryoshot)
+hl.unbind(mainMod .. " + SHIFT + S")
+hl.unbind("Print")
+hl.unbind("SHIFT + Print")
 
-local function pause_livewall_and_visualizer()
-    if not livewall_paused then
-        livewall_paused = true
-        os.execute("pkill -STOP -x mpvpaper 2>/dev/null; pkill -STOP -x ryoku-livewall 2>/dev/null; pkill -STOP -x cava 2>/dev/null &")
-    end
-end
+-- Unbind Ryoku's built-in launcher (ryoku:launcher)
+hl.unbind(mainMod .. " + Space")
 
-local function resume_livewall_and_visualizer()
-    if livewall_paused then
-        livewall_paused = false
-        os.execute("pkill -CONT -x mpvpaper 2>/dev/null; pkill -CONT -x ryoku-livewall 2>/dev/null; pkill -CONT -x cava 2>/dev/null &")
-    end
-end
+-- Unbind Ryoku's built-in file manager (ryoku-app files)
+hl.unbind(mainMod .. " + E")
 
-local function is_any_window_fullscreen_or_maximized()
-    local cur = hl.get_active_window()
-    if cur and cur.fullscreen and cur.fullscreen ~= 0 then
-        return true
-    end
-    local active_ws = hl.get_active_workspace()
-    local ws_id = active_ws and active_ws.id
-    if ws_id and hl.get_windows then
-        local wins = hl.get_windows()
-        for _, w in ipairs(wins) do
-            if w.workspace and w.workspace.id == ws_id and w.fullscreen and w.fullscreen ~= 0 then
-                return true
-            end
+-- Unbind Ryoku's built-in lock (ryoku-shell lock)
+hl.unbind(mainMod .. " + L")
+
+-- Unbind Ryoku's built-in terminal (ryoku-app terminal)
+hl.unbind(mainMod .. " + Return")
+
+-- Unbind Ryoku's built-in browser (ryoku-app browser)
+hl.unbind(mainMod .. " + B")
+
+-- Unbind Ryoku's built-in clipboard (ryoku:clipboard)
+hl.unbind(mainMod .. " + V")
+
+-- Unbind Ryoku's built-in wallpaper (ryoku:wallpaper-menu)
+hl.unbind(mainMod .. " + W")
+
+-- Unbind Ryoku's built-in session/logout
+hl.unbind(mainMod .. " + Escape")
+
+-- Unbind Ryoku's visualizer from SUPER+M (conflicts with Music Recognition)
+hl.unbind(mainMod .. " + M")
+hl.unbind(mainMod .. " + SHIFT + M")
+
+-- Unbind Ryoku's built-in color picker (conflicts with SUPER+P)
+hl.unbind(mainMod .. " + SHIFT + C")
+
+-- Unbind Ryoku's settings (SUPER+comma conflicts with Emoji Picker)
+hl.unbind(mainMod .. " + comma")
+
+-- Unbind Ryoku's built-in stash sidebar (SUPER+S)
+hl.unbind(mainMod .. " + S")
+
+-- Unbind Ryoku's voice (SUPER+GRAVE conflicts with wlogout)
+hl.unbind(mainMod .. " + grave")
+
+-- Bind Ryoku's overview (Mission Control) to SUPER+Tab, F3, and CTRL+Up
+hl.bind(mainMod .. " + Tab", hl.dsp.global("ryoku:overview"))
+hl.bind("F3", hl.dsp.global("ryoku:overview"))
+hl.bind("CTRL + Up", hl.dsp.global("ryoku:overview"))
+
+-- Unbind Ryoku's scratchpad binds (SUPER+H/J conflict with window focus)
+hl.unbind(mainMod .. " + H")
+hl.unbind(mainMod .. " + J")
+
+-- Set monitor scale to 1 (43PR default — no fractional scaling)
+local monitors = hl.get_monitors and hl.get_monitors() or {}
+if #monitors > 0 then
+    for _, mon in ipairs(monitors) do
+        if mon.name and mon.name ~= "" then
+            hl.monitor({ output = mon.name, mode = "preferred", position = "auto", scale = 1 })
         end
     end
-    return false
+else
+    hl.monitor({ output = "eDP-1", mode = "1920x1080@144", position = "auto", scale = 1 })
+    hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 end
 
-local function set_fs_escape_bound(bound)
-    if bound and not escape_is_bound then
-        local ok = pcall(function()
-            hl.bind("Escape", function()
-                local cur = hl.get_active_window()
-                if cur and cur.fullscreen and cur.fullscreen ~= 0 then
-                    hl.dispatch(hl.dsp.window.fullscreen_state({ internal = 0, client = 0, action = "set", window = cur }))
-                    if fs_floating_map[cur.address] then
-                        hl.dispatch(hl.dsp.window.float({ action = "on", window = cur }))
-                        fs_floating_map[cur.address] = nil
-                    end
-                    set_fs_escape_bound(false)
-                    resume_livewall_and_visualizer()
-                else
-                    set_fs_escape_bound(false)
-                end
-            end)
-        end)
-        if ok then escape_is_bound = true end
-    elseif not bound and escape_is_bound then
-        local ok = pcall(function()
-            hl.unbind("Escape")
-        end)
-        if ok then escape_is_bound = false end
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 1. WINDOW STYLING, FONTS & COMPOSITOR OPACITY
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Environment variables
+hl.env("XCURSOR_SIZE", "18")
+hl.env("HYPRCURSOR_SIZE", "18")
+
+-- Core look & feel
+hl.config({
+    general = {
+        border_size = 0,
+        ["col.active_border"] = "rgba(00000000)",
+        ["col.inactive_border"] = "rgba(00000000)",
+        gaps_in = 3,
+        gaps_out = 4,
+        resize_on_border = true,
+    },
+    decoration = {
+        rounding = 8,
+        active_opacity = 0.85,
+        inactive_opacity = 0.80,
+        fullscreen_opacity = 1.0,
+        dim_special = 0.3,
+        blur = {
+            enabled = true,
+            size = 4,
+            passes = 2,
+            vibrancy = 0.18,
+            ignore_opacity = true,
+            popups = true,
+            special = true,
+        },
+    },
+    input = {
+        follow_mouse = 1,
+        touchpad = {
+            natural_scroll = true,
+            tap_button_map = "lrm",
+        },
+    },
+    gestures = {
+        workspace_swipe_distance = 250,
+        workspace_swipe_invert = true,
+        workspace_swipe_cancel_ratio = 0.3,
+        workspace_swipe_create_new = true,
+        workspace_swipe_direction_lock = true,
+        workspace_swipe_min_speed_to_force = 30,
+    },
+    misc = {
+        disable_hyprland_logo = true,
+        disable_splash_rendering = true,
+        mouse_move_enables_dpms = true,
+        key_press_enables_dpms = true,
+    },
+})
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 2. FLUID ANIMATIONS (Clean & Smooth — No Bounce Effect)
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Smooth curves without overshoot/bounce
+hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
+hl.curve("smoothLinear", { type = "bezier", points = { {0.25, 1.0}, {0.5, 1.0} } })
+
+-- Animations: Crisp & smooth
+hl.animation({ leaf = "global",              enabled = true, speed = 4, bezier = "easeOutQuint" })
+hl.animation({ leaf = "windows",             enabled = true, speed = 4, bezier = "easeOutQuint", style = "popin 90%" })
+hl.animation({ leaf = "windowsOut",          enabled = true, speed = 3, bezier = "easeOutQuint", style = "popin 90%" })
+hl.animation({ leaf = "fade",                enabled = true, speed = 4, bezier = "smoothLinear" })
+hl.animation({ leaf = "workspaces",          enabled = true, speed = 5, bezier = "easeOutQuint", style = "slide" })
+hl.animation({ leaf = "specialWorkspaceIn",  enabled = true, speed = 4, bezier = "easeOutQuint", style = "slide" })
+hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 4, bezier = "easeOutQuint", style = "slide" })
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 3. LAYER BLUR RULES
+-- ═══════════════════════════════════════════════════════════════════════════
+
+hl.layer_rule({ match = { namespace = "rofi" },    blur = true, ignore_alpha = 0.15 })
+hl.layer_rule({ match = { namespace = "mako" },    blur = true, ignore_alpha = 0.15 })
+hl.layer_rule({ match = { namespace = "wlogout" }, blur = true, ignore_alpha = 0.15 })
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 4. WINDOW RULES & OPACITY OVERRIDES
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Global 85% active / 80% inactive
+hl.window_rule({ match = { class = ".*" }, opacity = "0.85 override" })
+hl.window_rule({ match = { class = ".*", fullscreen = true }, opacity = "1.0 override" })
+
+-- Terminals: 80%
+hl.window_rule({ match = { class = "^(kitty|foot|Alacritty)$" }, opacity = "0.80 override" })
+
+-- File managers: 80%
+hl.window_rule({ match = { class = "^(thunar|org.gnome.Nautilus|org.kde.dolphin)$" }, opacity = "0.80 override" })
+
+-- Hardware/Settings apps: 80%
+hl.window_rule({ match = { class = "^(pavucontrol|nm-connection-editor|blueman-manager|blueman-services)$" }, opacity = "0.80 override" })
+hl.window_rule({ match = { class = "^(dusky_tui|Terminator)$" }, opacity = "0.80 override" })
+
+-- Floating rules for system/hardware utilities
+hl.window_rule({ name = "float-pavucontrol", match = { class = "^(pavucontrol)$" }, float = true })
+hl.window_rule({ name = "float-blue", match = { class = "^(blueman-manager)$" }, float = true })
+hl.window_rule({ name = "float-satty", match = { class = "^(com.gabm.satty)$" }, float = true })
+hl.window_rule({ name = "float-btop", match = { class = "^(btop)$" }, float = true })
+hl.window_rule({ name = "float-terminator", match = { class = "^(Terminator)$" }, float = true })
+hl.window_rule({ name = "float-music", match = { class = "^(music_recognition.py)$" }, float = true })
+hl.window_rule({ name = "float-calc", match = { class = "^(org.gnome.Calculator|qalculate-gtk)$" }, float = true })
+
+-- Suppress maximize events
+hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize" })
+
+-- Picture-in-Picture
+hl.window_rule({
+    match = { title = "^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" },
+    float = true,
+    keep_aspect_ratio = true,
+    pin = true,
+})
+
+-- Float common modals
+hl.window_rule({ match = { title = "^(Open|Authentication Required|Add Folder to Workspace|Choose Files|Save As|Confirm to replace files|File Operation Progress)$" }, float = true })
+hl.window_rule({ match = { initial_title = "^(Open File)$" }, float = true })
+hl.window_rule({ match = { class = "^([Xx]dg-desktop-portal-gtk)$" }, float = true })
+hl.window_rule({ match = { title = "^(File Upload|Choose wallpaper|Library)(.*)$" }, float = true })
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 5. CORE APPLICATION LAUNCHERS
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Terminal (Kitty)
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + T",      hl.dsp.exec_cmd("kitty"))
+
+-- Web Browser (Google Chrome)
+hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd("google-chrome-stable"))
+
+-- File Manager (Thunar)
+hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd("thunar"))
+
+-- App Launcher (Rofi Dark Glass)
+hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("pgrep -x rofi >/dev/null && pkill -x rofi || rofi -show drun"))
+hl.bind(mainMod .. " + D",      hl.dsp.exec_cmd("pgrep -x rofi >/dev/null && pkill -x rofi || rofi -show drun"))
+
+-- Quick Settings / Control Center (Ryoku Default on SUPER+ESC)
+hl.bind(mainMod .. " + Escape", hl.dsp.global("ryoku:quicksettings"))
+
+-- System Activity Monitor (btop)
+hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("kitty --class btop -e btop"))
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 6. LOCKSCREEN, LOGOUT MENU & WALLPAPER SELECTOR
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Lock Screen (43PR Hyprlock)
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
+
+-- Logout Menu (wlogout circular)
+hl.bind(mainMod .. " + GRAVE", hl.dsp.exec_cmd("pgrep -x wlogout >/dev/null && pkill -x wlogout || wlogout -b 5 -c 20 -r 20 -L 550 -R 550 -T 460 -B 460"))
+
+-- Wallpaper Selector (RyoWalls or fallback to user selector)
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("quickshell -n -c ryowalls || quickshell -n -c hyprquickpaper || python3 " .. user_scripts .. "images/wallpaper_selector.py"))
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 7. SCREENSHOTS & SCREEN CAPTURE SUITE (43PR Defaults)
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- PrtSc: Snip Area → Clipboard (subtle dark tint slurp)
+hl.bind("Print", hl.dsp.exec_cmd([[sh -c 'TMP=$(mktemp /tmp/snip-XXXXXX.png); grim -g "$(slurp -b 00000033 -c 7aa2f7aa -s 00000000 -w 1)" "$TMP" && wl-copy < "$TMP" && notify-send -a "Screenshot" -i "$TMP" "Area Copied" "Screenshot copied to clipboard" ; rm -f "$TMP"']]))
+
+-- Shift+PrtSc: Fullscreen → Clipboard
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[sh -c 'TMP=$(mktemp /tmp/screen-XXXXXX.png); grim "$TMP" && wl-copy < "$TMP" && notify-send -a "Screenshot" -i "$TMP" "Fullscreen Copied" "Entire screen copied to clipboard" ; rm -f "$TMP"']]))
+
+-- SUPER+SHIFT+S: Annotated Screenshot (Satty freeze-frame editor)
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(user_scripts .. "images/dusky_screenshot.sh --region --freeze --annotate"))
+
+-- SUPER+SHIFT+T: OCR Text Snip (Tesseract → Clipboard)
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd([[sh -c 'GEOM=$(slurp -b 00000033 -c 7aa2f7aa -s 00000000 -w 1 2>/dev/null) || exit 0; TMP=$(mktemp /tmp/ocr-XXXXXX.png); trap "rm -f $TMP" EXIT; grim -g "$GEOM" "$TMP"; TEXT=$(tesseract "$TMP" - 2>/dev/null); if [ -n "$TEXT" ]; then printf "%s" "$TEXT" | wl-copy; notify-send -a "OCR" "Text Extracted" "$TEXT"; else notify-send -a "OCR" "No Text Found" "Could not extract text from selection"; fi']]))
+
+-- SUPER+G: Google Lens Visual Search (snip → reverse image search)
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd(user_scripts .. "google_image_search/google_image_search.sh"))
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 8. WINDOW OPERATIONS, FLOAT, CLOSE & MANAGEMENT
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Close window (rapid repeat)
+hl.bind(mainMod .. " + W",          hl.dsp.window.close(), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + W",  hl.dsp.exec_cmd("hyprctl dispatch killactive"))
+
+-- Fullscreen toggle
+hl.bind("F11",                      hl.dsp.window.fullscreen({ mode = 0 }))
+hl.bind(mainMod .. " + F",          hl.dsp.window.fullscreen({ mode = 0 }))
+
+-- Smart Float & Center (SUPER+A): Floats active window, resizes to 90% centered
+hl.bind(mainMod .. " + A", function()
+    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+    local w = hl.get_active_window()
+    if w ~= nil and w.floating then
+        local mon = hl.get_active_monitor()
+        if mon ~= nil then
+            local target_w = math.floor(mon.width * 0.9)
+            local target_h = math.floor(mon.height * 0.9)
+            hl.dispatch(hl.dsp.window.resize({ x = target_w, y = target_h, relative = false }))
+            local target_x = mon.x + math.floor((mon.width - target_w) / 2)
+            local target_y = mon.y + math.floor((mon.height - target_h) / 2)
+            hl.dispatch(hl.dsp.window.move({ x = target_x, y = target_y, relative = false }))
+        end
     end
+end)
+
+-- Focus windows (HJKL vim-style)
+hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
+
+-- Swap / Move windows within layout (SUPER+SHIFT+HJKL)
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+
+-- Resize windows (SUPER+CTRL+HJKL, repeating)
+hl.bind(mainMod .. " + CTRL + H", hl.dsp.window.resize({ x = -40, y = 0 }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.window.resize({ x = 40, y = 0 }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + K", hl.dsp.window.resize({ x = 0, y = -40 }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + J", hl.dsp.window.resize({ x = 0, y = 40 }), { repeating = true })
+
+-- Mouse drag move/resize
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 9. WORKSPACE NAVIGATION (1-10 + Move-to-Workspace)
+-- ═══════════════════════════════════════════════════════════════════════════
+
+for i = 1, 10 do
+    local key = i % 10
+    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
-local function sync_fs_escape_state()
-    local cur = hl.get_active_window()
-    if cur and cur.fullscreen and cur.fullscreen ~= 0 then
-        set_fs_escape_bound(true)
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 10. AI SUITE & SPEECH RECOGNITION
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Music Recognition / Shazam (SUPER+M)
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("kitty --class music_recognition.py -e python3 " .. user_scripts .. "music/music_recognition.py"))
+
+-- Push-to-Talk Voice Typing / STT (ALT+SPACE)
+hl.bind("ALT + SPACE", hl.dsp.exec_cmd("python3 " .. user_scripts .. "tts_stt/dusky_parakeet/dusky_trigger.py toggle"))
+
+-- Kokoro Neural TTS Read Aloud (SUPER+SHIFT+O)
+hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd([[sh -c 'TEXT=$(wl-paste -p 2>/dev/null || wl-paste 2>/dev/null); if [ -n "$TEXT" ]; then python3 ]] .. user_scripts .. [[tts_stt/dusky_kokoro/dusky_main.py --text "$TEXT"; else notify-send -a "Kokoro TTS" "No Text" "Highlight text first, then press SUPER+SHIFT+O"; fi']]))
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 11. QUICK SYSTEM TUI UTILITIES & HARDWARE SUITE
+-- ═══════════════════════════════════════════════════════════════════════════
+
+-- Audio Stream Mixer / Pavucontrol (ALT+3)
+hl.bind("ALT + 3", hl.dsp.exec_cmd("pavucontrol"))
+
+-- Audio Output Quick Switcher (ALT+O)
+hl.bind("ALT + O", hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh output"))
+
+-- Microphone Input Quick Switcher (ALT+I)
+hl.bind("ALT + I", hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh input"))
+
+-- Dusky Audio Studio / Voice DSP (ALT+N)
+hl.bind("ALT + N", hl.dsp.exec_cmd("python3 " .. user_scripts .. "audio/dusky_audio_studio/dusky_audio_studio.py"))
+
+-- Mono Audio PipeWire Toggle (ALT+M)
+hl.bind("ALT + M", hl.dsp.exec_cmd("python3 " .. user_scripts .. "audio/mono_audio_pipewire.py toggle"))
+
+-- Screen Rotation +90° (CTRL+ALT+R)
+hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("python3 " .. user_scripts .. "hypr/monitor/screen_rotate.py +90"))
+
+-- Screen Rotation -90° (CTRL+ALT+SHIFT+R)
+hl.bind("CTRL + ALT + SHIFT + R", hl.dsp.exec_cmd("python3 " .. user_scripts .. "hypr/monitor/screen_rotate.py -90"))
+
+-- Magnifier Zoom (SUPER+Mouse Wheel, SUPER + = / - / 0)
+local function zoomfunction(value)
+    local zoomvalue = hl.get_config("cursor:zoom_factor")
+    local newval = zoomvalue + value
+    if newval > 3.0 then
+        hl.config({ cursor = { zoom_factor = 3.0 } })
+    elseif newval < 1.0 then
+        hl.config({ cursor = { zoom_factor = 1.0 } })
     else
-        set_fs_escape_bound(false)
+        hl.config({ cursor = { zoom_factor = newval } })
     end
 end
+hl.bind(mainMod .. " + mouse_up",   function() zoomfunction(0.5)  end, { repeating = true })
+hl.bind(mainMod .. " + mouse_down", function() zoomfunction(-0.5) end, { repeating = true })
+hl.bind(mainMod .. " + equal",      function() zoomfunction(0.3)  end, { repeating = true })
+hl.bind(mainMod .. " + minus",      function() zoomfunction(-0.3) end, { repeating = true })
+hl.bind(mainMod .. " + 0",          function() hl.config({ cursor = { zoom_factor = 1.0 } }) end)
 
-local function sync_fs_state()
-    sync_fs_escape_state()
-    if is_any_window_fullscreen_or_maximized() then
-        pause_livewall_and_visualizer()
+-- Gaming Mode Passthrough (ALT+6)
+hl.bind("ALT + 6", hl.dsp.exec_cmd([[sh -c '
+    STATE_FILE="/tmp/hypr_gamemode_state"
+    if [ -f "$STATE_FILE" ]; then
+        rm -f "$STATE_FILE"
+        hyprctl keyword input:kb_options ""
+        hyprctl keyword general:border_size 0
+        hyprctl keyword decoration:rounding 8
+        notify-send -a "Gaming Mode" "🎮 Gaming Mode OFF" "Compositor keybinds restored"
     else
-        resume_livewall_and_visualizer()
-    end
-end
+        touch "$STATE_FILE"
+        hyprctl keyword general:border_size 2
+        hyprctl keyword decoration:rounding 0
+        notify-send -a "Gaming Mode" "🎮 Gaming Mode ON" "All compositor keybinds disabled for gaming"
+    fi
+']]))
 
-local function toggle_maximize_window(w)
-    local win = w or hl.get_active_window()
-    if not win or not win.address then return end
-    if win.fullscreen and win.fullscreen ~= 0 then
-        hl.dispatch(hl.dsp.window.fullscreen_state({ internal = 0, client = 0, action = "set", window = win }))
-        if fs_floating_map[win.address] then
-            hl.dispatch(hl.dsp.window.float({ action = "on", window = win }))
-            fs_floating_map[win.address] = nil
-        end
-        set_fs_escape_bound(false)
-        resume_livewall_and_visualizer()
-    else
-        if win.floating then
-            fs_floating_map[win.address] = true
-        else
-            fs_floating_map[win.address] = nil
-        end
-        hl.dispatch(hl.dsp.window.fullscreen_state({ internal = 2, client = 0, action = "set", window = win }))
-        set_fs_escape_bound(true)
-        pause_livewall_and_visualizer()
-    end
-end
+-- Wayclick Keyboard Sounds (SUPER+U)
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(user_scripts .. "wayclick/dusky_wayclick.sh"))
 
-local function toggle_pure_fullscreen_window(w)
-    local win = w or hl.get_active_window()
-    if not win or not win.address then return end
-    if win.fullscreen and win.fullscreen ~= 0 then
-        hl.dispatch(hl.dsp.window.fullscreen_state({ internal = 0, client = 0, action = "set", window = win }))
-        if fs_floating_map[win.address] then
-            hl.dispatch(hl.dsp.window.float({ action = "on", window = win }))
-            fs_floating_map[win.address] = nil
-        end
-        set_fs_escape_bound(false)
-        resume_livewall_and_visualizer()
-    else
-        if win.floating then
-            fs_floating_map[win.address] = true
-        else
-            fs_floating_map[win.address] = nil
-        end
-        hl.dispatch(hl.dsp.window.fullscreen({ mode = 0, window = win }))
-        set_fs_escape_bound(true)
-        pause_livewall_and_visualizer()
-    end
-end
+-- Keystroke Visualizer OSD (SUPER+SHIFT+U)
+hl.bind(mainMod .. " + SHIFT + U", hl.dsp.exec_cmd([[sh -c 'if pgrep -f showmethekey >/dev/null 2>&1; then pkill -f showmethekey; notify-send -a "Keys" "Keystroke OSD OFF"; else showmethekey-gtk & notify-send -a "Keys" "Keystroke OSD ON"; fi']]))
 
--- Keybindings for Maximize & Fullscreen
-hl.bind("F11",                      toggle_maximize_window)
-hl.bind("SHIFT + F11",              toggle_pure_fullscreen_window)
-hl.bind(mainMod .. " + F",          toggle_maximize_window)
-
--- Expose globally for scripting / verification
-_G.toggle_maximize_window = toggle_maximize_window
-_G.toggle_pure_fullscreen_window = toggle_pure_fullscreen_window
-_G.set_fs_escape_bound = set_fs_escape_bound
-_G.sync_fs_escape_state = sync_fs_escape_state
-_G.sync_fs_state = sync_fs_state
-_G.pause_livewall_and_visualizer = pause_livewall_and_visualizer
-_G.resume_livewall_and_visualizer = resume_livewall_and_visualizer
-
--- Event listeners to keep Escape key, live wallpaper, and visualizer synchronized
-hl.on("window.fullscreen",  function(_) sync_fs_state() end)
-hl.on("window.active",      function(_) sync_fs_state() end)
-hl.on("workspace.active",   function(_) sync_fs_state() end)
-hl.on("window.close",       function(_) sync_fs_state() end)
-hl.on("window.destroy",     function(_) sync_fs_state() end)
+-- Services & Process Terminator (ALT+DELETE)
+hl.bind("ALT + Delete", hl.dsp.exec_cmd("kitty --class dusky_tui -e bash " .. user_scripts .. "performance/services_and_process_terminator.sh"))
 
 -- ═══════════════════════════════════════════════════════════════════════════
--- 2. MISSION CONTROL & OVERVIEW (F3, CTRL+Up, SUPER+Tab)
+-- 12. EMOJI, CALCULATOR, COLOR PICKER & KEYBINDING SEARCH
 -- ═══════════════════════════════════════════════════════════════════════════
-hl.bind("F3",                       hl.dsp.global("ryoku:overview"))
-hl.bind("CTRL + Up",                hl.dsp.global("ryoku:overview"))
-hl.bind(mainMod .. " + Tab",        hl.dsp.global("ryoku:overview"))
+
+-- Emoji Picker (SUPER + , and SUPER + .)
+hl.bind(mainMod .. " + comma",  hl.dsp.exec_cmd(user_scripts .. "rofi/emoji.sh"))
+hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(user_scripts .. "rofi/emoji.sh"))
+
+-- Calculator (SUPER+C or XF86Calculator)
+hl.bind(mainMod .. " + C",    hl.dsp.exec_cmd(user_scripts .. "rofi/calculator.sh"))
+hl.bind("XF86Calculator",     hl.dsp.exec_cmd(user_scripts .. "rofi/calculator.sh"))
+
+-- Color Picker (SUPER+P)
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd([[sh -c 'COLOR=$(hyprpicker -a -f hex 2>/dev/null); if [ -n "$COLOR" ]; then notify-send -a "Color Picker" "🎨 $COLOR" "Copied to clipboard"; fi']]))
+
+-- Interactive Keybinding Search (SUPER + /)
+hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd("kitty --class dusky_tui -e python3 " .. user_scripts .. "hypr/input/keybinds_cheatsheet.py"))
+
+-- Dusky Glance HUD (CTRL+ALT+SPACE)
+hl.bind("CTRL + ALT + SPACE", hl.dsp.exec_cmd(user_scripts .. "rofi/dusky_glance.sh"))
 
 -- ═══════════════════════════════════════════════════════════════════════════
--- 3. CUSTOM USER TOOLS & SCRIPTS (Peaceful Coexistence with Ryoku Defaults)
+-- 13. CLIPBOARD MANAGER
 -- ═══════════════════════════════════════════════════════════════════════════
-hl.bind(mainMod .. " + G",         hl.dsp.exec_cmd(user_scripts .. "google_image_search/google_image_search.sh"))
-hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("kitty --class music_recognition.py -e python3 " .. user_scripts .. "music/music_recognition.py"))
-hl.bind("ALT + SPACE",             hl.dsp.exec_cmd("python3 " .. user_scripts .. "tts_stt/dusky_parakeet/dusky_trigger.py --push"))
-hl.bind("ALT + O",                 hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh --output"))
-hl.bind("ALT + I",                 hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh --input"))
-hl.bind("ALT + N",                 hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh --studio"))
-hl.bind("ALT + M",                 hl.dsp.exec_cmd("python3 " .. user_scripts .. "audio/mono_audio_pipewire.py"))
-hl.bind("CTRL + ALT + R",          hl.dsp.exec_cmd("python3 " .. user_scripts .. "hypr/monitor/screen_rotate.py +90"), { locked = true, repeating = true })
-hl.bind("CTRL + ALT + SHIFT + R",  hl.dsp.exec_cmd("python3 " .. user_scripts .. "hypr/monitor/screen_rotate.py -90"), { locked = true, repeating = true })
-hl.bind(mainMod .. " + U",         hl.dsp.exec_cmd(user_scripts .. "wayclick/dusky_wayclick.sh"))
-hl.bind(mainMod .. " + SHIFT + U", hl.dsp.exec_cmd(user_scripts .. "mako_osd/dusky_keys/dusky_keys.sh"))
+
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("pgrep -x rofi >/dev/null && pkill -x rofi || cliphist list | rofi -dmenu -p '' | cliphist decode | wl-copy"))
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 14. MEDIA & VOLUME KEYS
+-- ═══════════════════════════════════════════════════════════════════════════
+
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
+hl.bind("XF86AudioPlay",        hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioNext",        hl.dsp.exec_cmd("playerctl next"), { locked = true })
+hl.bind("XF86AudioPrev",        hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+-- Brightness
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true })
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- 15. EXIT HYPRLAND
+-- ═══════════════════════════════════════════════════════════════════════════
+
+hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exit())
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- Done. All 43PR × Dusky features are active.
+-- ═══════════════════════════════════════════════════════════════════════════

@@ -64,4 +64,5 @@ optional("ghosttype")
 
 -- last word: ~/.config/hypr/user.lua. seeded once with a header explaining the
 -- load order, then yours; never touched by updates.
+optional("modules.minmax")
 optional("user")
