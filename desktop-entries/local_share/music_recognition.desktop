@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Music Recognition
+GenericName=Song Identifier
+Comment=Identify playing music using SongRec
+Exec=kitty --class music_recognition.py -e /home/kshitij/user_scripts/music/music_recognition.py
+Icon=audio-input-microphone
+Terminal=false
+Categories=Audio;AudioVideo;Utility;
+Keywords=shazam;music;song;recognize;identify;
+StartupNotify=false

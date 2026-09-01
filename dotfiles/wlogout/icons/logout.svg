@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <!-- Door frame / Door -->
+  <rect x="17" y="15" width="36" height="70" rx="5" fill="white"/>
+  <!-- Inner door opening / cutout -->
+  <rect x="25.5" y="23.5" width="19" height="53" rx="2.5" fill="#1c1c1c"/>
+  <!-- Door handle dot -->
+  <circle cx="40.5" cy="50" r="2.8" fill="white"/>
+  <!-- Arrow body and head -->
+  <path d="M 42 50 H 77" fill="none" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 65 37 L 79 50 L 65 63" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

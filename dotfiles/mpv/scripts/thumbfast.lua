@@ -1,0 +1,1 @@
+/home/kshitij/.config/mpv/scripts/thumbfast_repo/thumbfast.lua

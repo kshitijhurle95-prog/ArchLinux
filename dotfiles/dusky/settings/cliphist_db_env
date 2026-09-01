@@ -1,0 +1,1 @@
+export CLIPHIST_DB_PATH="/run/user/1000/cliphist.db"

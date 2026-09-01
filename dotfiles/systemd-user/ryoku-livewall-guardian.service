@@ -1,0 +1,14 @@
+[Unit]
+Description=Ryoku Live Wallpaper Self-Healing Guardian
+PartOf=hyprland-session.target
+After=ryoku-shell.service hyprland-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+ExecStart=/home/kshitij/.local/bin/livewall-guardian
+Restart=always
+RestartSec=1
+Slice=session.slice
+
+[Install]
+WantedBy=hyprland-session.target

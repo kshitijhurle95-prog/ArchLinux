@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Wrapper to guarantee Nautilus opens a new window even when already running.
+for arg in "$@"; do
+    if [ "$arg" = "--version" ] || [ "$arg" = "-h" ] || [ "$arg" = "--help" ] || [ "$arg" = "--new-window" ] || [ "$arg" = "-w" ]; then
+        exec /usr/bin/nautilus "$@"
+    fi
+done
+
+exec /usr/bin/nautilus --new-window "$@"

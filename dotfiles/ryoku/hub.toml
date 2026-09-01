@@ -1,0 +1,4 @@
+[ui]
+  section = "connections"
+  update_interval = "daily"
+  advanced = ""

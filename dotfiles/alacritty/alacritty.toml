@@ -1,0 +1,4 @@
+import = ["colors.toml"]
+
+[window]
+opacity = 0.58

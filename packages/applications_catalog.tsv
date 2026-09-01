@@ -1,0 +1,173 @@
+Desktop File	App Name	Exec Command	Categories	Comment
+WebHTTrack-Websites.desktop	Browse Mirrored Websites	webhttrack browse	Network;	Browse Websites Mirrored by WebHTTrack
+WebHTTrack.desktop	WebHTTrack Website Copier	webhttrack	Network;	Copy websites to your computer
+antigravity.desktop	Antigravity	/usr/bin/antigravity %U	Development;Utility;	Experience liftoff
+audacity.desktop	Audacity	env UBUNTU_MENUPROXY=0 audacity %F	AudioVideo;Audio;AudioVideoEditing;	Record and edit audio files
+avahi-discover.desktop	Avahi Zeroconf Browser	/usr/bin/avahi-discover	GNOME;System;	Browse for Zeroconf services available on your network
+blueman-adapters.desktop	Bluetooth Adapters	blueman-adapters	X-XFCE;Settings;HardwareSettings;X-XFCE-SettingsDialog;GTK;	Set Bluetooth Adapter Properties
+blueman-manager.desktop	Bluetooth Manager	blueman-manager	GTK;GNOME;Settings;HardwareSettings;	Blueman Bluetooth Manager
+bssh.desktop	Avahi SSH Server Browser	/usr/bin/bssh	GNOME;Network;	Browse for Zeroconf-enabled SSH Servers
+btop.desktop	btop++	btop	System;Monitor;ConsoleOnly;	Resource monitor that shows usage and stats for processor, memory, disks, network and processes
+btrfs_compression_stats.desktop	BTRFS Compression Stats	kitty --hold --class btrfs_zstd_compression_stats.sh -e /home/kshitij/user_scripts/drives/btrfs_zstd_compression_stats.sh	System;Disk;	ZSTD Compression Ratio
+bvnc.desktop	Avahi VNC Server Browser	/usr/bin/bvnc	GNOME;Network;	Browse for Zeroconf-enabled VNC Servers
+calendar.desktop	Calendar	/usr/bin/kitty --class ikhal -e /usr/bin/ikhal	Office;Calendar;ConsoleOnly;	Terminal CLI calendar application (ikhal)
+cava.desktop	Cava	kitty --class cava -e cava	Audio;Video;	Console-based Audio Visualizer for ALSA
+chromium.desktop	Chromium	/usr/bin/chromium %U	Network;WebBrowser;	Access the Internet
+clipboard_persistance.desktop	Clipboard Persistence	kitty --hold --class 390_clipboard_persistance.py -e /home/kshitij/user_scripts/arch_setup_scripts/scripts/390_clipboard_persistance.py	System;Utility;	Manage clipboard history and persistence
+cmake-gui.desktop	CMake	cmake-gui %f	Development;Building;	Cross-platform buildsystem
+code-url-handler.desktop	Visual Studio Code - URL Handler	code --open-url %U	Utility;TextEditor;Development;IDE;	Code Editing. Redefined.
+code.desktop	Visual Studio Code	code %F	TextEditor;Development;IDE;	Code Editing. Redefined.
+com.google.Chrome.desktop	Google Chrome	/usr/bin/google-chrome-stable %U	Network;WebBrowser;	Access the Internet
+compress-video.desktop	Compress video	hyprctl dispatch "hl.dsp.global('ryoku:compress')"	AudioVideo;	Pick videos or images and shrink them with ffmpeg
+dusky_appearances.desktop	Dusky Appearance TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/hypr/visual/tui_appearance.py	Settings;DesktopSettings;System;Utility;	Real-time Hyprland appearance and opacity configurator
+dusky_autostart_tui.desktop	Dusky Autostart	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/hypr/misc/tui_autostart.py	System;Settings;DesktopSettings;Utility;	Manage Hyprland autostart entries and background services via Dusky TUI
+dusky_battery.desktop	Dusky Battery	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/battery/notify/tui_battery.py	Settings;System;Utility;	Configure battery thresholds, timings, and alerts
+dusky_control_center.desktop	Dusky Control Center	/usr/bin/env python3 /home/kshitij/user_scripts/dusky_system/control_center/dusky_control_center.py	System;Settings;GTK;	Centralized configuration for Dusky OS
+dusky_core_manager.desktop	Dusky Core Manager	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/performance/cpu/tui_dusky_core_manager.py	Settings;System;Utility;	Configure CPU P-Cores and E-Cores online status
+dusky_disk_monitor_io.desktop	Dusky Disk Monitor	kitty --class dusky_disk_monitor_io.py -e /home/kshitij/user_scripts/drives/dusky_disk_monitor_io.py	System;Monitor;	Real-time Disk I/O Monitoring
+dusky_dns.desktop	DNS & Resolver TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/network_manager/tui_dns.py	Network;Settings;System;Utility;	Systemd-resolved DNS, DNS-over-TLS, custom upstreams and privacy presets manager
+dusky_fonts.desktop	Dusky Fonts	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/fonts/tui_fonts.py	Settings;DesktopSettings;System;Utility;	System fonts, typefaces, subpixel rendering and cache manager
+dusky_glance.desktop	Dusky Glance	/home/kshitij/user_scripts/rofi/dusky_glance.sh	Utility;System;Settings;	Rofi frontend for timers, pomodoro, and system stats
+dusky_gsettings.desktop	Dusky GSettings TUI	kitty --class dusky_gsettings.sh -e /home/kshitij/user_scripts/gtk/dusky_gsettings.sh	Settings;DesktopSettings;System;Utility;	Real-time GTK, theme, and desktop environment configurator
+dusky_hypridle_timeout.desktop	Dusky Hypridle Timeout	kitty --class dusky_hypridle.sh -e /home/kshitij/user_scripts/hypridle/dusky_hypridle.sh	Settings;System;	Configure Idle Timeout Settings
+dusky_hypridle_toggle.desktop	dusky Toggle Hypridle	/home/kshitij/user_scripts/waybar/toggle_hypridle.sh	System;	Enable/Disable Hypridle
+dusky_hyprlock_switcher.desktop	Dusky Hyprlock Theme Manager	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/hyprlock/tui_hyprlock.py	Settings;DesktopSettings;Utility;	Switch Hyprlock configurations interactively
+dusky_input.desktop	Dusky Input TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/hypr/input/tui_input.py	Settings;DesktopSettings;System;Utility;	Real-time Hyprland input, mouse, and gesture configurator
+dusky_keybinds.desktop	Dusky Keybind Manager	kitty --hold --class dusky_keybinds.sh -e /home/kshitij/user_scripts/hypr/input/dusky_keybinds.py	System;Settings;Utility;	Advanced TUI for managing Dusky keybinds with conflict resolution
+dusky_keybinds_cheatsheet.desktop	Dusky Keybinds Cheatsheet	kitty --class DuskyKeybindsCheatsheet --title "Dusky Keybinds Cheatsheet" -e python3.14 /home/kshitij/user_scripts/hypr/input/keybinds_cheatsheet.py	System;Settings;Utility;	World-Class Hyprland keybindings dashboard & cheatsheet glance window
+dusky_keylogger.desktop	Dusky Keylogger	kitty --class dusky_keylogger -e /home/kshitij/contained_apps/uv/dusky_key_logger/bin/dusky dashboard	Utility;System;	Live keystroke analytics — Rich Live TUI (matugen, tabs, detailed stats + transcript)
+dusky_keylogger_tui.desktop	Dusky Keylogger Settings	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/keylogger/tui_keylogger.py	Settings;System;Utility;	Configure persistence/ephemeral logging, daemon, transcripts and analytics via TUI
+dusky_keys.desktop	Dusky Keys	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/mako_osd/dusky_keys/tui_dusky_keys.py	Settings;DesktopSettings;System;Utility;	On-screen display keypress visualizer configuration manager
+dusky_locale_tui.desktop	Dusky Region Manager	kitty --hold --class dusky_tui -e python3 /home/kshitij/user_scripts/locale/tui_system_region.py	System;Settings;Utility;ConsoleOnly;	Unified TUI for managing Timezone, NTP, Locale, and Keymap via systemd
+dusky_matugen_presets.desktop	Dusky Matugen Presets	kitty --class dusky_matugen_presets.sh -e /home/kshitij/user_scripts/theme_matugen/dusky_matugen_presets.sh	Settings;Utility;System;	Vibrant Material Design Theme Switcher
+dusky_matugen_tui.desktop	Dusky Matugen TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/theme_matugen/config/tui_matugen.py	Settings;DesktopSettings;Theme;Utility;	Customize Matugen color templates and system application theme integrations
+dusky_monitor.desktop	Dusky Monitor Wizard	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/hypr/monitor/monitor_wizard.py	Settings;Hardware;System;	Configure Hyprland monitors, resolution, and scaling
+dusky_network.desktop	Dusky Network	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/network_manager/tui_dusky_network.py	Network;Settings;	Arch Linux / Hyprland WiFi Manager (TUI)
+dusky_packages.desktop	Dusky Package Atlas	foot --app-id=dusky_packages.sh /home/kshitij/user_scripts/pacman/dusky_packages.sh --desktop	System;Utility;TerminalEmulator;	Interactive FZF Arch Linux Package Explorer
+dusky_power.desktop	Dusky Power	kitty --class dusky_power.sh -e /home/kshitij/user_scripts/power/dusky_power.sh	Settings;System;Utility;ConsoleOnly;	Systemd Logind Power Management (Lid, Power Button, Idle)
+dusky_power_limiter.desktop	Dusky Power Limiter	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/performance/cpu/tui_dusky_power_throttle.py	Settings;System;Utility;	Configure CPU RAPL PL1/PL2 power limits and time windows
+dusky_quickpanal.desktop	Dusky Quick Panal	/home/kshitij/user_scripts/dusky_system/quickpanal/dusky_quickpanal.py	Audio;HardwareSettings;Settings;Utility;	Adjust Various Settings
+dusky_screentime_tui.desktop	Dusky Screentime	kitty --class dusky_screentime_tui -e python3 /home/kshitij/user_scripts/screentime/screentime_tui.py	System;Monitor;Utility;	Real-time application screentime visualization dashboard
+dusky_service_toggle.desktop	Dusky Toggle Service	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/services/tui_service_toggle.py	Settings;System;	Configure Service Settings
+dusky_site_blocker.desktop	Dusky Site Blocker	kitty --hold --class 325_hosts_files_block.sh -e /home/kshitij/user_scripts/arch_setup_scripts/scripts/325_hosts_files_block.sh	System;Utility;ConsoleOnly;	Advanced /etc/hosts manager for deep work and distraction blocking
+dusky_sites.desktop	Dusky Sites TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/firefox/theme_matugen/tui_dusky_sites.py	Settings;DesktopSettings;Network;WebBrowser;	Real-time website theming and domain toggle manager
+dusky_snapshot.desktop	Dusky Snapshot	kitty --class dusky_snapshot_manager.py /home/kshitij/user_scripts/btrfs_snapshots/cc/dusky_snapshot_manager.py	dusky;btrfs;backup;restore;System;Utility;	Advanced Btrfs/Snapper Flat Layout Manager
+dusky_starship.desktop	Dusky Starship	kitty --app-id=dusky_tui python3 /home/kshitij/user_scripts/starship/tui_starship.py	Settings;DesktopSettings;	Switch between Starship prompt styles
+dusky_visualizer_tui.desktop	Dusky Visualizer TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/way_layers/visualizer/tui_visualizer.py	Settings;DesktopSettings;	Launch Dusky TUI for Audio Visualizer
+dusky_waybars.desktop	Dusky Waybar Swap	foot --app-id=waybar_tui python3 /home/kshitij/user_scripts/waybar/tui_waybars.py	Settings;DesktopSettings;	Toggle between Waybar configurations
+dusky_wayclick_config.desktop	Dusky WayClick TUI	kitty --class dusky_tui_wayclick.sh -e /home/kshitij/user_scripts/wayclick/dusky_tui_wayclick.sh	Settings;DesktopSettings;System;Utility;	WayClick configurator TUI
+dusky_window_rules.desktop	Window Rule Manager	foot --app-id=dusky_window_rules.sh /home/kshitij/user_scripts/hypr/rules/window_rules_generator.py	System;Utility;Development;	Interactive TUI to generate and append Hyprland window rules
+dusky_workspace.desktop	Dusky Workspace TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/hypr/workspace/tui_workspace_rules.py	Settings;DesktopSettings;System;Utility;	Toggle different Layouts
+fastfetch.desktop	Fastfetch	kitty --class fastfetch --hold -e fastfetch	System;Monitor;ConsoleOnly;	Display system information
+firefox.desktop	Firefox	/usr/lib/firefox/firefox %u	GNOME;GTK;Network;WebBrowser;	Fast and private browser
+foot-server.desktop	Foot Server	foot --server	System;TerminalEmulator;	A wayland native terminal emulator (server)
+foot.desktop	Foot	foot	System;TerminalEmulator;	A wayland native terminal emulator
+footclient.desktop	Foot Client	footclient	System;TerminalEmulator;	A wayland native terminal emulator (client)
+gammastep-indicator.desktop	Gammastep Indicator	gammastep-indicator	Utility;	Indicator for color temperature adjustment
+gammastep.desktop	gammastep	gammastep	Utility;	Color temperature adjustment tool
+gcr-prompter.desktop	Access Prompt	/usr/lib/gcr-prompter		Unlock access to passwords and other secrets
+gcr-viewer.desktop	View file	/usr/bin/gcr-viewer		
+geoclue-demo-agent.desktop	Geoclue Demo agent	/usr/lib/geoclue-2.0/demos/agent		
+geoclue-where-am-i.desktop	Where am I?	/usr/lib/geoclue-2.0/demos/where-am-i		Find your current location
+gkbd-keyboard-display.desktop	Keyboard Layout	gkbd-keyboard-display	GNOME;GTK;Core;System;	Preview keyboard layouts
+gnome-disk-image-mounter.desktop	Disk Image Mounter	gnome-disk-image-mounter %U		Mount Disk Images
+gnome-disk-image-writer.desktop	Disk Image Writer	gnome-disks --restore-disk-image %U		Write Disk Images to Devices
+google-chrome.desktop	Google Chrome	/usr/bin/google-chrome-stable %U	Network;WebBrowser;	Access the Internet
+google-maps-geo-handler.desktop	Google Maps	kde-geo-uri-handler --coordinate-template "https://www.google.com/maps/@<LAT>,<LON>,<Z>z" --query-template "https://www.google.com/maps/search/<Q>" --fallback "https://www.google.com/maps/" %u		
+google_image_search.desktop	Google Lens Capture	/home/kshitij/user_scripts/google_image_search/google_image_search.sh	Utility;Graphics;Photography;	Capture a screen region and search with Google Lens
+gpu-screen-recorder.desktop	GPU Screen Recorder	gsr-ui launch-hide-announce	AudioVideo;Recorder;	A ShadowPlay-like screen recorder for Linux
+gtk-lshw.desktop	LSHW	/usr/sbin/gtk-lshw	Application;System;X-Red-Hat-Base;X-Fedora;	HardWare LiSter
+htop.desktop	Htop	htop	System;Monitor;ConsoleOnly;	Show System Processes
+hu.irl.cameractrls.desktop	Cameractrls	cameractrlsgtk4	Settings;AudioVideo;Video;Office;Utility;GNOME;GTK;	Camera controls for Linux
+install-app.desktop	Install app	hyprctl dispatch "hl.dsp.global('ryoku:install')"	System;	Pick AppImages, packages or archives and install them
+io.github.Foldex.AdwSteamGtk.desktop	AdwSteamGtk	adwaita-steam-gtk	GTK;Utility	A simple wrapper that installs Adwaita for Steam
+io.github.bluemancz.hyprmod.desktop	HyprMod	hyprmod	Settings;DesktopSettings;GTK;	A native GTK4/libadwaita settings app for Hyprland
+khal.desktop	ikhal	ikhal	Office;Calendar;ConsoleOnly;	Terminal CLI calendar application
+kitty-open.desktop	kitty URL Launcher	kitty +open %U	System;TerminalEmulator;	Open URLs with kitty
+kitty.desktop	kitty	kitty	System;TerminalEmulator;	Fast, feature-rich, GPU based terminal
+ktelnetservice6.desktop	KTelnetService	ktelnetservice6 %u		
+localsend.desktop	LocalSend	localsend %U	GTK;FileTransfer;Utility;	
+lstopo.desktop	Hardware Locality lstopo	lstopo	System;Monitor;	Show hardware topology
+mako_tui.desktop	Mako TUI	foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/mako_osd/mako_tui/tui_mako.py	Settings;Notifications;System;Utility;	Customize Notifications
+matugen.desktop	Matugen Theme	/home/kshitij/user_scripts/theme_matugen/theme_ctl.sh random	Settings;Theme;	Regenerate system colors from wallpaper
+mouse_button_reverse.desktop	Mouse Button Reverse	kitty --hold --class mouse_button_reverse.sh -e /home/kshitij/user_scripts/arch_setup_scripts/scripts/265_mouse_button_reverse.sh	Settings;HardwareSettings;	Swap primary mouse buttons
+mpv.desktop	mpv Media Player	mpv --player-operation-mode=pseudo-gui -- %U	AudioVideo;Audio;Video;Player;TV;	Play movies and songs
+music_recognition.desktop	Music Recognition	kitty --class music_recognition.py -e /home/kshitij/user_scripts/music/music_recognition.py	Audio;AudioVideo;Utility;	Identify playing music using SongRec
+nautilus-autorun-software.desktop	Run Software	nautilus-autorun-software %u		
+nautilus.desktop	Files	nautilus --new-window %U	GNOME;GTK;Utility;Core;FileManager;	Access and organize files
+nm-connection-editor.desktop	Advanced Network Configuration	nm-connection-editor	GNOME;GTK;Settings;X-GNOME-NetworkSettings;X-GNOME-Utilities;	Manage and change your network connection settings
+nvim.desktop	Neovim	nvim %F	Utility;TextEditor;Development;	Edit text files
+nvtop.desktop	nvtop	nvtop	System;Monitor;	
+nwg-look.desktop	GTK Settings	nwg-look	GTK;Settings;DesktopSettings;	Customizes GTK3 look and feel settings
+openstreetmap-geo-handler.desktop	OpenStreetMap	kde-geo-uri-handler --coordinate-template "https://www.openstreetmap.org/#map=<Z>/<LAT>/<LON>" --query-template "https://www.openstreetmap.org/search?query=<Q>" --fallback "https://www.openstreetmap.org" %u		
+org.freedesktop.Xwayland.desktop	Xwayland	/usr/bin/Xwayland -decorate -displayfd 1	System;	A rootful instance of the Xwayland X11 server
+org.gnome.Calculator.desktop	Calculator	gnome-calculator	GNOME;GTK;Utility;Calculator;	Perform arithmetic, scientific or financial calculations
+org.gnome.DiskUtility.desktop	Disks	gnome-disks	GNOME;GTK;Utility;X-GNOME-Utilities;	Manage Drives and Media
+org.gnome.FileRoller.desktop	File Roller	file-roller %U	GTK;GNOME;Utility;Archiving;Compression;	Create and modify an archive
+org.gnome.Loupe.desktop	Image Viewer	loupe %U	GNOME;GTK;Graphics;2DGraphics;RasterGraphics;Viewer;	View and edit images
+org.gnome.Meld.desktop	Meld	meld %F	GTK;Development;	Compare and merge your files
+org.gnome.Nautilus.desktop	Files	nautilus --new-window %U	GNOME;GTK;Utility;Core;FileManager;	Access and organize files
+org.gnome.Snapshot.desktop	Camera	snapshot	AudioVideo;Video;Recorder;GNOME;GTK;	Take pictures and videos
+org.gnome.Zenity.desktop	Zenity	zenity		Display dialog boxes from the command line
+org.gnome.clocks.desktop	Clocks	gnome-clocks	GNOME;GTK;Utility;Clock;	Clocks for world times, plus alarms, stopwatch and a timer
+org.gnome.seahorse.Application.desktop	Passwords and Keys	seahorse %u	GNOME;GTK;Security;Utility;DesktopSettings;X-XFCE-SettingsDialog;	Manage your passwords and encryption keys
+org.gnupg.pinentry-qt.desktop	Pinentry	/usr/bin/pinentry-qt	Qt;Utility;	
+org.kde.kiod6.desktop	KIO	kiod6		
+org.kde.ksecretd.desktop	KDE Wallet Service	ksecretd		
+org.openrgb.OpenRGB.desktop	OpenRGB	openrgb	Utility;	Control RGB lighting
+org.pulseaudio.pavucontrol.desktop	Volume Control	pavucontrol	AudioVideo;Audio;Mixer;GTK;Settings;X-XFCE-SettingsDialog;X-XFCE-HardwareSettings;	Adjust the volume level
+org.pwmt.zathura-pdf-mupdf.desktop	Zathura	zathura %U	Office;Viewer;	A minimalistic document viewer
+org.pwmt.zathura.desktop	Zathura	zathura %U	Office;Viewer;	Minimalistic document viewer
+org.quickshell.desktop	Quickshell			
+org.x.editor.desktop	Text Editor	xed %U	GTK;Utility;TextEditor;	Edit text files
+org.xfce.Catfish.desktop	Catfish File Search	catfish %f	GNOME;GTK;Utility;	Search the file system
+org.xfce.mousepad-settings.desktop	Text Editor Settings	mousepad --preferences	XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;	Configure the Mousepad text editor
+org.xfce.mousepad.desktop	Mousepad	mousepad %U	Utility;TextEditor;GTK;	Simple Text Editor
+powersave.desktop	Power Saver Mode	foot --app-id=dusky_tui /home/kshitij/user_scripts/battery/power_saver.sh -e	System;Settings;	Enable Power Saving Mode (Prompt)
+powersave_off.desktop	Turn off Power Saver	foot --app-id=dusky_tui /home/kshitij/user_scripts/battery/power_saver.sh -d	System;Settings;	Reverses Power Saving Mode
+process_terminator.desktop	Process Terminator	kitty --hold --class performance.sh -e /home/kshitij/user_scripts/performance/services_and_process_terminator.sh	System;Monitor;	Select and kill running processes
+qemu.desktop	QEMU			
+qt5ct.desktop	Qt5 Settings	qt5ct	Settings;DesktopSettings;Qt;	Qt5 Configuration Tool
+qt6ct.desktop	Qt6 Settings	qt6ct	Settings;DesktopSettings;Qt;	Qt6 Configuration Tool
+qv4l2.desktop	Qt V4L2 test Utility	qv4l2	AudioVideo;	Allow testing Video4Linux devices
+qvidcap.desktop	Qt V4L2 video capture utility	qvidcap	AudioVideo;	Viewer for video capture
+re.fossplant.songrec.desktop	SongRec	songrec gui %f	GTK;Audio;AudioVideo;	An open-source Shazam client for Linux, written in Rust
+rofi-theme-selector.desktop	Rofi Theme Selector	rofi-theme-selector		
+rofi.desktop	Rofi	rofi -show		
+rofi_calculator.desktop	Rofi Calculator	/home/kshitij/user_scripts/rofi/calculator.sh	Settings;Theme;	Make Calculations right in Rofi
+rofi_emoji.desktop	Rofi Emoji	/home/kshitij/user_scripts/rofi/emoji.sh	Settings;Theme;	Find an Emoji
+rofi_wallpaper_selector.desktop	Rofi Wallaper	/home/kshitij/user_scripts/rofi/rofi_wallpaper_selctor.sh	Settings;Theme;	Switch/Change Wallpapers
+rotate_screen_clockwise.desktop	Rotate Screen Clockwise	/home/kshitij/user_scripts/hypr/screen_rotate.sh -90	Settings;HardwareSettings;	Rotate display -90 degrees
+rotate_screen_counter_clockwise.desktop	Rotate Screen Anti-Clockwise	/home/kshitij/user_scripts/hypr/screen_rotate.sh +90	Settings;HardwareSettings;	Rotate display +90 degrees
+ryoku-nvim.desktop	Neovim	kitty -e nvim %F	Utility;TextEditor;Development;	Edit text files with Neovim in a terminal
+ryomotion.desktop	Ryo Motion	ryomotion %U	AudioVideo;Video;Recorder;	Record your screen and turn it into a polished demo
+ryostore.desktop	Ryostore	flock -n -o /tmp/ryostore.lock qs -c ryostore	Utility;Settings;	Discover and install Ryoku lockscreens, rices, bar styles, plugins and bundles
+ryotunes.desktop	ryotunes	ryotunes	AudioVideo;Audio;Player;	YouTube Music as a focused Ryoku app, wired to the desktop now-playing widget
+ryovm.desktop	Ryoport	flock -n -o /tmp/ryovm.lock qs -c ryovm	System;Utility;	One console for your virtual machines, VPS and SSH connections
+ryowalls.desktop	ryowalls	flock -n -o /tmp/ryowalls.lock qs -c ryowalls	Utility;Graphics;	Browse, edit, enhance and set image and live wallpapers with a live rice preview
+satty.desktop	Satty	satty -f %f	Utility;Graphics;	
+scale_down.desktop	Scale UI Down	/home/kshitij/user_scripts/hypr/monitor/adjust_scale.py -	Settings;	Decrease display scaling
+scale_up.desktop	Scale UI Up	/home/kshitij/user_scripts/hypr/monitor/adjust_scale.py +	Settings;	Increase display scaling
+spotify-launcher.desktop	Spotify (Launcher)	spotify-launcher %U	Audio;Music;Player;AudioVideo;	
+streamfog.desktop	Streamfog	/home/kshitij/Applications/Streamfog-x86_64.AppImage	AudioVideo;Video;	Webcam AR Filters and Lenses
+swappy.desktop	Swappy	swappy -f %f	Utility;Graphics;	A Wayland native snapshot editing tool
+swayimg.desktop	Swayimg	swayimg %F	Graphics;Viewer	Image viewer for Wayland
+thunar-bulk-rename.desktop	Bulk Rename	thunar --bulk-rename %F	Utility;Core;GTK;Filesystem;	Rename Multiple Files
+thunar-settings.desktop	Thunar Preferences	thunar-settings	XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;	Configure the Thunar file manager
+thunar-volman-settings.desktop	Removable Drives and Media	thunar-volman-settings	XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-HardwareSettings;	Configure management of removable drives and media
+thunar.desktop	Thunar File Manager	thunar %U	System;Core;GTK;FileTools;FileManager;	Browse the filesystem with the file manager
+update_dusky.desktop	Dusky System Update	kitty --class update_dusky.py --title "Dusky System Update" --hold python3 /home/kshitij/user_scripts/update_dusky/python/update_dusky.py	System;ConsoleOnly;	Syncs local setup with latest git commit and updates system
+user-dirs-update-gtk.desktop	User folders update	xdg-user-dirs-gtk-update		Update common folders names to match current locale
+vlc.desktop	VLC media player	/usr/bin/vlc --started-from-file %U	AudioVideo;Player;Recorder;	Read, capture, broadcast your multimedia streams
+voxtype-configure.desktop	Voxtype Configuration	voxtype-configure-launcher	Settings;	Configure voxtype dictation settings (engine, model, hotkey, audio, output)
+warp.desktop	Toggle Warp	/home/kshitij/user_scripts/networking/warp_toggle.py	Network;	Toggle Cloudflare Warp Connection
+wayclick.desktop	Toggle Wayclick	/home/kshitij/user_scripts/wayclick/dusky_wayclick.sh	keyboard;sounds;	Key Press Sounds
+wheelmap-geo-handler.desktop	wheelmap.org	kde-geo-uri-handler --coordinate-template "https://wheelmap.org/?lat=<LAT>&lon=<LON>" --query-template "https://wheelmap.org/search?q=<Q>" --fallback "https://wheelmap.org" %u		
+xdg-desktop-portal-gtk.desktop	Portal	/usr/lib/xdg-desktop-portal-gtk		
+xfce4-about.desktop	About Xfce	xfce4-about	Utility;X-XFCE;X-Xfce-Toplevel;	Information about the Xfce Desktop Environment
+xgps.desktop	xgps	xgps	Application;Maps;Utility;	Display GPS information from a gpsd daemon
+xgpsspeed.desktop	xgpsspeed	xgpsspeed	Application;Maps;Utility;	Display GPS speed from a gpsd daemon
+xreader.desktop	Document Viewer	xreader %U	GTK;Utility;Viewer;	View multi-page documents
+yad-icon-browser.desktop	Icon Browser	yad-icon-browser	GTK;Development;	Inspect GTK Icon Theme
+yad-settings.desktop	YAD settings	yad-settings	GTK;Settings;	Simple GUI for editing YAD settings
+yazi.desktop	Yazi File Manager	yazi %f	System;FileManager;FileTools;ConsoleOnly	Blazing fast terminal file manager written in Rust, based on async I/O

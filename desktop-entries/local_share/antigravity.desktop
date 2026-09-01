@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Antigravity
+GenericName=AI Code Editor
+Comment=Next-generation agentic AI coding environment
+Exec=/home/kshitij/.local/share/ryoku-apps/Antigravity/Antigravity-x64/antigravity %F
+Icon=antigravity
+Terminal=false
+Categories=Development;IDE;
+StartupWMClass=antigravity
+Keywords=antigravity;agy;ai;editor;code;development;
+MimeType=x-scheme-handler/antigravity;

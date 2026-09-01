@@ -1,0 +1,60 @@
+/* Ryoku palette -> GTK Dark Monochrome */
+
+/* --- libadwaita / GTK 4 (Files, text editors, GNOME apps) --- */
+@define-color accent_color #ffffff;
+@define-color accent_bg_color #ffffff;
+@define-color accent_fg_color #121212;
+@define-color window_bg_color #121212;
+@define-color window_fg_color #e0e0e0;
+@define-color view_bg_color #121212;
+@define-color view_fg_color #e0e0e0;
+@define-color headerbar_bg_color #1c1c1c;
+@define-color headerbar_fg_color #e0e0e0;
+@define-color headerbar_border_color #333333;
+@define-color headerbar_backdrop_color #121212;
+@define-color card_bg_color #181818;
+@define-color card_fg_color #e0e0e0;
+@define-color dialog_bg_color #222222;
+@define-color dialog_fg_color #e0e0e0;
+@define-color popover_bg_color #1c1c1c;
+@define-color popover_fg_color #e0e0e0;
+@define-color sidebar_bg_color #161616;
+@define-color sidebar_fg_color #e0e0e0;
+@define-color destructive_color #ff5555;
+@define-color destructive_bg_color #ff5555;
+@define-color destructive_fg_color #121212;
+@define-color warning_color #e0e0e0;
+@define-color success_color #ffffff;
+
+/* --- classic GTK 3 (Adwaita named palette) --- */
+@define-color theme_bg_color #121212;
+@define-color theme_fg_color #e0e0e0;
+@define-color theme_base_color #121212;
+@define-color theme_text_color #e0e0e0;
+@define-color theme_selected_bg_color #ffffff;
+@define-color theme_selected_fg_color #121212;
+@define-color theme_unfocused_bg_color #121212;
+@define-color theme_unfocused_fg_color #e0e0e0;
+@define-color theme_unfocused_base_color #121212;
+@define-color theme_unfocused_text_color #e0e0e0;
+@define-color theme_unfocused_selected_bg_color #ffffff;
+@define-color theme_unfocused_selected_fg_color #121212;
+@define-color insensitive_bg_color #1c1c1c;
+@define-color insensitive_fg_color #777777;
+@define-color insensitive_base_color #121212;
+@define-color borders #333333;
+@define-color unfocused_borders #2a2a2a;
+@define-color error_color #ff5555;
+
+/* --- Translucent Window Backgrounds with 100% Solid Text/Icons --- */
+window, .background {
+    background-color: alpha(@window_bg_color, 0.85);
+}
+
+headerbar, .titlebar {
+    background-color: alpha(@headerbar_bg_color, 0.85);
+}
+
+.sidebar, placessidebar {
+    background-color: alpha(@sidebar_bg_color, 0.85);
+}

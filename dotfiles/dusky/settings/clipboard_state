@@ -1,0 +1,15 @@
+# =============================================================================
+# CLIPBOARD MANAGER USER SETTINGS  (managed by terminal_clipboard.sh)
+# =============================================================================
+# fzf preview window layout: hidden | <right|left|up|down>,<10-90>%,<opts...>
+PREVIEW_LAYOUT="right,45%,wrap-word"
+
+# Last *visible* layout, restored when the pane is un-hidden
+PREVIEW_LAST="right,45%,wrap-word"
+
+# Keybinding mode: "false" = standard, "true" = vim normal mode
+VIM_MODE="false"
+
+# Consumed by external pruning units (see clipboard-prune.timer)
+MAX_CLIP_ITEMS="5000"
+MAX_CLIP_AGE_DAYS="7"

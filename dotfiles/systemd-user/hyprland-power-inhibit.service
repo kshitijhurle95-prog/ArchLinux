@@ -1,0 +1,12 @@
+[Unit]
+Description=Inhibit logind power key handler for Hyprland
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/systemd-inhibit --what=handle-power-key --mode=block --who=user --why="Hyprland power key handler" sleep infinity
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=hyprland-session.target default.target

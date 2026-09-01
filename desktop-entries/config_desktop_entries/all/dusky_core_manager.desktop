@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Dusky Core Manager
+GenericName=CPU Core Configurator
+Comment=Configure CPU P-Cores and E-Cores online status
+Exec=foot --app-id=dusky_tui python3 /home/dusk/user_scripts/performance/cpu/tui_dusky_core_manager.py
+Terminal=false
+Categories=Settings;System;Utility;
+Keywords=dusky;cpu;core;hotplug;manager;tui;
+Icon=cpu
+StartupNotify=true
+StartupWMClass=dusky_tui

@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# set-livewall: High-quality, GPU-accelerated video wallpaper player for Wayland/Hyprland
+
+CONFIG_FILE="$HOME/.config/ryoku/current_livewall.path"
+
+mkdir -p "$HOME/.config/ryoku"
+
+# If called with --restore, restore the last applied wallpaper
+if [[ "$1" == "--restore" ]]; then
+    if [[ -f "$CONFIG_FILE" ]]; then
+        VIDEO="$(cat "$CONFIG_FILE")"
+        if [[ -f "$VIDEO" ]]; then
+            killall mpvpaper ryoku-livewall 2>/dev/null || true
+            mpvpaper -p -f -o "no-audio --loop-playlist --hwdec=auto --profile=high-quality" '*' "$VIDEO"
+            exit 0
+        fi
+    fi
+    exit 0
+fi
+
+# Determine video file path
+if [[ -n "$1" ]]; then
+    VIDEO="$(realpath "$1" 2>/dev/null || echo "$1")"
+else
+    # GUI file picker
+    if command -v zenity >/dev/null 2>&1; then
+        VIDEO=$(zenity --file-selection \
+            --title="Choose Video Wallpaper (100% Original Quality)" \
+            --file-filter="Video Files (*.mp4 *.mkv *.webm *.mov *.avi)|*.mp4 *.mkv *.webm *.mov *.avi" \
+            2>/dev/null)
+    fi
+fi
+
+if [[ -z "$VIDEO" || ! -f "$VIDEO" ]]; then
+    echo "No valid video file selected."
+    exit 1
+fi
+
+# Stop existing wallpaper daemons
+killall mpvpaper ryoku-livewall 2>/dev/null || true
+
+# Launch mpvpaper with lossless/original video reproduction
+# -p: auto pause when hidden
+# -f: daemonize/fork into background
+# -o: high quality mpv flags with hardware acceleration
+mpvpaper -p -f -o "no-audio --loop-playlist --hwdec=auto --profile=high-quality" '*' "$VIDEO"
+
+# Save path for persistence
+echo "$VIDEO" > "$CONFIG_FILE"
+
+if command -v notify-send >/dev/null 2>&1; then
+    notify-send -a "Live Wallpaper" "Applied Video Wallpaper" "$(basename "$VIDEO") (100% Quality)"
+fi

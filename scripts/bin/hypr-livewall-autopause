@@ -1,0 +1,197 @@
+#!/usr/bin/env python3
+"""
+Hyprland Live Wallpaper Auto-Pause Daemon
+Automatically pauses mpvpaper / ryoku-livewall when regular / Electron windows
+are focused or in fullscreen mode to save battery and reduce CPU/GPU heat.
+Instantly resumes live wallpaper when apps are closed, lose focus, or when
+terminals, file managers, and settings are focused.
+"""
+
+import os
+import sys
+import json
+import time
+import socket
+import signal
+import subprocess
+import re
+import glob
+
+# Apps that should KEEP the live wallpaper running (transparent/tiling workflow)
+EXCLUDED_CLASSES = {
+    # Terminals
+    "kitty", "alacritty", "foot", "footclient", "wezterm", "ghostty",
+    "gnome-terminal", "xterm", "konsole", "urxvt", "st", "st-256color",
+    "termite", "rio", "contour", "tilix", "tabby", "terminator", "blackbox",
+    "org.wezfurlong.wezterm", "com.mitchellh.ghostty", "com.raggesilver.blackbox",
+    "org.gnome.terminal", "org.kde.konsole", "xfce4-terminal", "lxterminal",
+
+    # File Managers
+    "nautilus", "org.gnome.nautilus", "thunar", "org.xfce.thunar",
+    "dolphin", "org.kde.dolphin", "nemo", "pcmanfm", "pcmanfm-qt",
+    "yazi", "ranger", "nnn", "caja", "io.elementary.files", "peazip",
+    "file-roller", "ark",
+
+    # System Settings & Utilities
+    "org.quickshell", "ryoku-settings", "gnome-control-center", "org.gnome.settings",
+    "systemsettings", "pavucontrol", "pavucontrol-qt", "com.saivert.pwvucontrol",
+    "blueman-manager", "nm-connection-editor", "wlogout", "swappy",
+    "kvantummanager", "lxappearance", "hyprland-settings", "nwg-look",
+    "io.missioncenter.missioncenter", "gnome-system-monitor", "btop", "htop",
+    "polkit-gnome-authentication-agent-1", "polkit-kde-authentication-agent-1"
+}
+
+EXCLUDED_PATTERNS = [
+    r"^kitty$", r"^alacritty$", r"^foot.*", r"^wezterm$", r"^ghostty$",
+    r".*terminal.*", r".*console.*", r"nautilus", r"thunar", r"dolphin",
+    r"nemo", r"settings", r"control-center", r"pavucontrol", r"quickshell"
+]
+
+
+class LiveWallAutoPause:
+    def __init__(self):
+        self.is_paused = False
+        self.running = True
+
+    def get_socket_path(self):
+        runtime_dir = os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")
+        sig = os.environ.get("HYPRLAND_INSTANCE_SIGNATURE", "")
+        if sig:
+            candidate = os.path.join(runtime_dir, "hypr", sig, ".socket2.sock")
+            if os.path.exists(candidate):
+                return candidate
+
+        # Fallback search
+        matches = glob.glob(os.path.join(runtime_dir, "hypr", "*", ".socket2.sock"))
+        if matches:
+            return matches[0]
+        return None
+
+    def get_active_window(self):
+        try:
+            res = subprocess.run(
+                ["hyprctl", "activewindow", "-j"],
+                capture_output=True,
+                text=True,
+                timeout=1
+            )
+            if not res.stdout.strip():
+                return None
+            data = json.loads(res.stdout)
+            if not data or not data.get("address"):
+                return None
+            return data
+        except Exception:
+            return None
+
+    def is_excluded_window(self, win):
+        if not win:
+            return True
+
+        cls = (win.get("class") or "").lower().strip()
+        initial_cls = (win.get("initialClass") or "").lower().strip()
+
+        if not cls and not initial_cls:
+            return True
+
+        if cls in EXCLUDED_CLASSES or initial_cls in EXCLUDED_CLASSES:
+            return True
+
+        for pat in EXCLUDED_PATTERNS:
+            if re.search(pat, cls) or re.search(pat, initial_cls):
+                return True
+
+        return False
+
+    def pause_wallpaper(self):
+        if not self.is_paused:
+            subprocess.run(["killall", "-STOP", "mpvpaper", "ryoku-livewall"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            self.is_paused = True
+
+    def resume_wallpaper(self):
+        if self.is_paused:
+            subprocess.run(["killall", "-CONT", "mpvpaper", "ryoku-livewall"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+            self.is_paused = False
+
+    def evaluate(self):
+        win = self.get_active_window()
+        if win is None:
+            # Desktop or empty workspace in focus -> wallpaper runs
+            self.resume_wallpaper()
+            return
+
+        # Check if fullscreen
+        is_fullscreen = (win.get("fullscreen", 0) != 0) or (win.get("fullscreenClient", 0) != 0)
+
+        # Check if excluded class (terminal, file manager, settings)
+        is_excl = self.is_excluded_window(win)
+
+        if is_fullscreen:
+            # Fullscreen apps (games, videos, browser, etc.) always pause wallpaper
+            self.pause_wallpaper()
+        elif is_excl:
+            # Terminal, file manager, settings focused -> wallpaper runs
+            self.resume_wallpaper()
+        else:
+            # Regular app / Electron app focused -> pause wallpaper to save battery/CPU
+            self.pause_wallpaper()
+
+    def run(self):
+        # Initial evaluation
+        self.evaluate()
+
+        while self.running:
+            sock_path = self.get_socket_path()
+            if not sock_path or not os.path.exists(sock_path):
+                time.sleep(2)
+                continue
+
+            try:
+                with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
+                    s.connect(sock_path)
+                    self.evaluate()
+                    buffer = ""
+                    while self.running:
+                        data = s.recv(4096)
+                        if not data:
+                            break
+                        buffer += data.decode("utf-8", errors="ignore")
+                        lines = buffer.split("\n")
+                        buffer = lines.pop()
+
+                        should_eval = False
+                        for line in lines:
+                            line = line.strip()
+                            if not line:
+                                continue
+                            event_name = line.split(">>")[0]
+                            # Hyprland events affecting focus / window state
+                            if event_name in (
+                                "activewindow", "activewindowv2", "closewindow",
+                                "openwindow", "workspace", "workspacev2", "focusedmon",
+                                "fullscreen", "changefloatingmode", "movewindow"
+                            ):
+                                should_eval = True
+
+                        if should_eval:
+                            self.evaluate()
+            except Exception:
+                time.sleep(1)
+
+
+def main():
+    daemon = LiveWallAutoPause()
+
+    def handle_signal(sig, frame):
+        daemon.running = False
+        daemon.resume_wallpaper()
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, handle_signal)
+    signal.signal(signal.SIGINT, handle_signal)
+
+    daemon.run()
+
+
+if __name__ == "__main__":
+    main()

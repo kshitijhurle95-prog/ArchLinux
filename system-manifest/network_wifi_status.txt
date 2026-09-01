@@ -1,0 +1,16 @@
+lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP> 
+eno1             DOWN           24:6a:0e:2b:29:e8 <NO-CARRIER,BROADCAST,MULTICAST,UP> 
+wlan0            DOWN           a8:59:5f:2c:7f:ae <NO-CARRIER,BROADCAST,MULTICAST,UP> 
+wlan1            UP             58:04:4f:3f:01:77 <BROADCAST,MULTICAST,UP,LOWER_UP> 
+
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eno1             DOWN           
+wlan0            DOWN           
+wlan1            UP             10.10.9.205/22 fe80::6487:6dfa:aebf:7dcd/64 
+
+DEVICE              TYPE      STATE                   CONNECTION    
+wlan1               wifi      connected               NxtWave_ADYPU 
+lo                  loopback  connected (externally)  lo            
+wlan0               wifi      disconnected            --            
+/net/connman/iwd/0  wifi-p2p  disconnected            --            
+eno1                ethernet  unavailable             --            

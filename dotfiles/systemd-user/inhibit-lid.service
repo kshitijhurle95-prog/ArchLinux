@@ -1,0 +1,10 @@
+[Unit]
+Description=Inhibit logind lid switch actions
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/systemd-inhibit --what=handle-lid-switch --mode=block --who="user" --why="Do nothing on lid close" sleep infinity
+Restart=always
+
+[Install]
+WantedBy=default.target

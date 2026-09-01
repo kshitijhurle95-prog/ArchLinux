@@ -1,0 +1,36 @@
+add_newline = false
+
+format = """
+[╭─](white)$time [|](white) ${custom.date} [|](white) $directory$git_branch$cmd_duration
+$character"""
+
+[time]
+disabled = false
+format = '[󰥔 ](black)[$time](white)'
+time_format = '%T'
+
+[custom.date]
+command = "date +'%-d %b, %A'"
+when = "true"
+format = "[󰃭 ](black)[$output](white)"
+
+[directory]
+format = "[󰉋 ](black)[in ](white)[$path](white)"
+home_symbol = "󰋜"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = "󰊢 "
+format = " [on ](white)[$symbol](black)[$branch](white)"
+
+[cmd_duration]
+min_time = 2000
+format = " [󰔚 ](black)[$duration](white)"
+
+[character]
+success_symbol = "[╰─❯ ](white)"
+error_symbol = "[╰─❯ ](red)"
+
+[package]
+disabled = true

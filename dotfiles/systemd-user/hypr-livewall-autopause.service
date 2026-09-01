@@ -1,0 +1,15 @@
+[Unit]
+Description=Hyprland Live Wallpaper Auto-Pause Daemon
+PartOf=hyprland-session.target
+After=ryoku-shell.service hyprland-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/kshitij/.local/bin/hypr-livewall-autopause
+Restart=always
+RestartSec=2
+Slice=session.slice
+
+[Install]
+WantedBy=hyprland-session.target

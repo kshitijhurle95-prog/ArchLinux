@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+echo "═════════════════════════════════════════════════════════════"
+echo "  UNINSTALLING RYOKU PACMAN PACKAGES"
+echo "═════════════════════════════════════════════════════════════"
+sudo pacman -Rdd --noconfirm ryoku ryoku-desktop ryoku-shell ryoku-hub ryoku-hypr-plugins ryoku-rashin ryoku-blobs ryoku-cursor-material ryoku-cursors ryoku-keyring ryomotion gpk otf-space-grotesk 2>/dev/null || sudo pacman -R --noconfirm ryoku ryoku-desktop ryoku-shell ryoku-hub ryoku-hypr-plugins
+echo ""
+echo "✅ All Ryoku pacman packages removed successfully."
+echo "═════════════════════════════════════════════════════════════"

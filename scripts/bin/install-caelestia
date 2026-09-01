@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -e
+
+echo "═════════════════════════════════════════════════════════════"
+echo "  REFRESHING DATABASES & INSTALLING CAELESTIA SHELL"
+echo "═════════════════════════════════════════════════════════════"
+
+# Refresh pacman database (-Sy) to prevent 404 errors on older package versions
+yay -Sy --needed \
+  caelestia-shell \
+  caelestia-cli \
+  quickshell-git \
+  qt6-m3shapes-git \
+  ttf-material-symbols-variable \
+  ttf-rubik-vf \
+  ttf-cascadia-code-nerd \
+  brightnessctl \
+  ddcutil \
+  libcava \
+  aubio \
+  libpipewire \
+  libqalculate \
+  power-profiles-daemon \
+  swappy \
+  grim \
+  slurp \
+  wl-clipboard \
+  cliphist \
+  fuzzel \
+  gpu-screen-recorder
+
+echo ""
+echo "═════════════════════════════════════════════════════════════"
+echo "  SWITCHING FROM RYOKU TO CAELESTIA SHELL"
+echo "═════════════════════════════════════════════════════════════"
+
+# Stop Ryoku Shell and user service
+echo " -> Stopping Ryoku shell and service..."
+systemctl --user stop ryoku-shell.service 2>/dev/null || true
+systemctl --user disable ryoku-shell.service 2>/dev/null || true
+killall ryoku-shell quickshell 2>/dev/null || true
+sleep 1
+
+# Launch Caelestia Shell
+echo " -> Starting Caelestia shell in background..."
+caelestia shell -d
+
+echo ""
+echo "═════════════════════════════════════════════════════════════"
+echo "  ✅ CAELESTIA SHELL INSTALLED & STARTED SUCCESSFULLY!"
+echo "═════════════════════════════════════════════════════════════"
+echo "  • Open App Launcher : Super"
+echo "  • Set Wallpaper     : caelestia wallpaper -f /path/to/image"
+echo "  • Wallpaper Picker  : Type >wallpaper in launcher"
+echo "  • Shell IPC Status  : caelestia shell -s"
+echo "═════════════════════════════════════════════════════════════"

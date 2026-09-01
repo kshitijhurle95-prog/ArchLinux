@@ -1,0 +1,63 @@
+* {
+    background-image: none;
+    box-shadow: none;
+    outline: none;
+    outline-style: none;
+}
+
+window {
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+button {
+    background-color: rgba(30, 30, 30, 0.60);
+    border: 2.5px solid #FFFFFF;
+    border-radius: 9999px;
+    color: transparent;
+    font-size: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 54px;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-size 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:focus,
+button:active,
+button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 2.5px solid #FFFFFF;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.45);
+    background-size: 58px;
+    outline: none;
+    outline-style: none;
+}
+
+#shutdown {
+    background-image: image(url("/home/kshitij/.config/wlogout/icons/shutdown.png"), url("/home/kshitij/.config/wlogout/icons/shutdown_white.png"), url("/usr/share/wlogout/icons/shutdown.png"));
+}
+
+#reboot {
+    background-image: image(url("/home/kshitij/.config/wlogout/icons/reboot.png"), url("/home/kshitij/.config/wlogout/icons/reboot_white.png"), url("/usr/share/wlogout/icons/reboot.png"));
+}
+
+#lock {
+    background-image: image(url("/home/kshitij/.config/wlogout/icons/lock.png"), url("/home/kshitij/.config/wlogout/icons/lock_white.png"), url("/usr/share/wlogout/icons/lock.png"));
+}
+
+#hibernate {
+    background-image: image(url("/home/kshitij/.config/wlogout/icons/hibernate.png"), url("/home/kshitij/.config/wlogout/icons/hibernate_white.png"), url("/home/kshitij/.config/wlogout/icons/suspend.png"));
+}
+
+#suspend {
+    background-image: image(url("/home/kshitij/.config/wlogout/icons/suspend.png"), url("/home/kshitij/.config/wlogout/icons/suspend_white.png"), url("/usr/share/wlogout/icons/suspend.png"));
+}
+
+#logout {
+    background-image: image(url("/home/kshitij/.config/wlogout/icons/logout.png"), url("/home/kshitij/.config/wlogout/icons/logout_white.png"), url("/usr/share/wlogout/icons/logout.png"));
+}

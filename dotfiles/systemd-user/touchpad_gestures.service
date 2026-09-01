@@ -1,0 +1,12 @@
+[Unit]
+Description=4-Finger Touchpad Workspace Swipe Gesture Daemon
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/kshitij/user_scripts/hypr/input/gesture_daemon.py
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,21 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "bar": {
+        "persistent": true
+    },
+    "launcher": {
+        "actionPrefix": ">",
+        "showOnHover": false
+    },
+    "paths": {
+        "wallpaperDir": "/home/kshitij/Pictures/Wallpapers"
+    },
+    "services": {
+        "brightnessIncrement": 0.05,
+        "maxVolume": 1
+    }
+}

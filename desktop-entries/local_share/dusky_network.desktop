@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Dusky Network
+Comment=Arch Linux / Hyprland WiFi Manager (TUI)
+Exec=foot --app-id=dusky_tui python3 /home/kshitij/user_scripts/network_manager/tui_dusky_network.py
+Icon=network-wireless
+Terminal=false
+Categories=Network;Settings;
+Keywords=dusky;wifi;network;nmcli;manager;hotspot;
+StartupWMClass=dusky-network

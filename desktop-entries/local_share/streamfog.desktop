@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Streamfog
+Comment=Webcam AR Filters and Lenses
+Exec=/home/kshitij/Applications/Streamfog-x86_64.AppImage
+Icon=camera-web
+Terminal=false
+Type=Application
+Categories=AudioVideo;Video;

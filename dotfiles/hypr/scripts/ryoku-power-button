@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""
+Power button handler for Hyprland:
+- Short press (< 5s): systemctl suspend (Sleep)
+- Hold (>= 5s): systemctl poweroff (Shutdown)
+- Works on both AC and Battery.
+"""
+
+import os
+import sys
+import time
+import subprocess
+import signal
+
+PRESS_FILE = "/tmp/.power_button_press"
+TIMER_PID_FILE = "/tmp/.power_button_timer_pid"
+LAST_ACTION_FILE = "/tmp/.power_button_last_action"
+HOLD_TIME_SEC = 5.0
+
+def get_last_action_time():
+    if os.path.exists(LAST_ACTION_FILE):
+        try:
+            with open(LAST_ACTION_FILE, "r") as f:
+                return float(f.read().strip())
+        except Exception:
+            pass
+    return 0.0
+
+def set_last_action_time():
+    try:
+        with open(LAST_ACTION_FILE, "w") as f:
+            f.write(str(time.time()))
+    except Exception:
+        pass
+
+def handle_press():
+    # Ignore if waking up or another action occurred within 1.5 seconds
+    if time.time() - get_last_action_time() < 1.5:
+        return
+
+    now = time.time()
+    with open(PRESS_FILE, "w") as f:
+        f.write(str(now))
+
+    # Kill any previous timer process
+    if os.path.exists(TIMER_PID_FILE):
+        try:
+            with open(TIMER_PID_FILE, "r") as f:
+                pid = int(f.read().strip())
+            os.kill(pid, signal.SIGTERM)
+        except Exception:
+            pass
+
+    # Launch background timer for shutdown
+    cmd = [
+        sys.executable,
+        os.path.abspath(__file__),
+        "timer",
+        str(now)
+    ]
+    proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    with open(TIMER_PID_FILE, "w") as f:
+        f.write(str(proc.pid))
+
+def handle_timer(press_timestamp):
+    time.sleep(HOLD_TIME_SEC)
+    # Check if the press file is still from this press session
+    if os.path.exists(PRESS_FILE):
+        try:
+            with open(PRESS_FILE, "r") as f:
+                ts = float(f.read().strip())
+            if abs(ts - press_timestamp) < 0.1:
+                # Timer elapsed and button is still held down!
+                set_last_action_time()
+                os.remove(PRESS_FILE)
+                subprocess.run(["systemctl", "poweroff"])
+        except Exception:
+            pass
+
+def handle_release():
+    # Kill timer
+    if os.path.exists(TIMER_PID_FILE):
+        try:
+            with open(TIMER_PID_FILE, "r") as f:
+                pid = int(f.read().strip())
+            os.kill(pid, signal.SIGTERM)
+        except Exception:
+            pass
+        try:
+            os.remove(TIMER_PID_FILE)
+        except Exception:
+            pass
+
+    if not os.path.exists(PRESS_FILE):
+        return
+
+    try:
+        with open(PRESS_FILE, "r") as f:
+            press_time = float(f.read().strip())
+        os.remove(PRESS_FILE)
+    except Exception:
+        return
+
+    duration = time.time() - press_time
+    if duration < HOLD_TIME_SEC and (time.time() - get_last_action_time() > 1.5):
+        set_last_action_time()
+        subprocess.run(["systemctl", "suspend"])
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit(1)
+    
+    action = sys.argv[1]
+    if action == "press":
+        handle_press()
+    elif action == "release":
+        handle_release()
+    elif action == "timer" and len(sys.argv) >= 3:
+        handle_timer(float(sys.argv[2]))
+
+if __name__ == "__main__":
+    main()

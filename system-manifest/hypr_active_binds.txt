@@ -1,0 +1,1751 @@
+bind
+	modmask: 64
+	submap: 
+	key: F
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 9
+
+bind
+	modmask: 64
+	submap: 
+	key: R
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 10
+
+bind
+	modmask: 64
+	submap: 
+	key: P
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 12
+
+bind
+	modmask: 64
+	submap: 
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 14
+
+bind
+	modmask: 64
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 16
+
+bind
+	modmask: 65
+	submap: 
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 22
+
+bind
+	modmask: 65
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 24
+
+bind
+	modmask: 65
+	submap: 
+	key: Up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 26
+
+bind
+	modmask: 65
+	submap: 
+	key: Down
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 28
+
+binde
+	modmask: 68
+	submap: 
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 30
+
+binde
+	modmask: 68
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 32
+
+binde
+	modmask: 68
+	submap: 
+	key: Up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 34
+
+binde
+	modmask: 68
+	submap: 
+	key: Down
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 36
+
+bind
+	modmask: 64
+	submap: 
+	key: N
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 44
+
+bind
+	modmask: 64
+	submap: 
+	key: O
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 46
+
+bind
+	modmask: 72
+	submap: 
+	key: E
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 48
+
+bind
+	modmask: 65
+	submap: 
+	key: V
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 60
+
+bind
+	modmask: 64
+	submap: 
+	key: Tab
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 64
+
+bind
+	modmask: 72
+	submap: 
+	key: Tab
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 66
+
+bind
+	modmask: 72
+	submap: 
+	key: M
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 72
+
+bind
+	modmask: 64
+	submap: 
+	key: mouse:272
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 82
+
+bind
+	modmask: 64
+	submap: 
+	key: mouse:273
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 84
+
+bind
+	modmask: 72
+	submap: 
+	key: H
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 88
+
+bind
+	modmask: 64
+	submap: 
+	key: mouse_up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 92
+
+bind
+	modmask: 64
+	submap: 
+	key: mouse_down
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 94
+
+bind
+	modmask: 64
+	submap: 
+	key: 1
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 96
+
+bind
+	modmask: 72
+	submap: 
+	key: 1
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 98
+
+bind
+	modmask: 64
+	submap: 
+	key: 2
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 100
+
+bind
+	modmask: 72
+	submap: 
+	key: 2
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 102
+
+bind
+	modmask: 64
+	submap: 
+	key: 3
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 104
+
+bind
+	modmask: 72
+	submap: 
+	key: 3
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 106
+
+bind
+	modmask: 64
+	submap: 
+	key: 4
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 108
+
+bind
+	modmask: 72
+	submap: 
+	key: 4
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 110
+
+bind
+	modmask: 64
+	submap: 
+	key: 5
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 112
+
+bind
+	modmask: 72
+	submap: 
+	key: 5
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 114
+
+bind
+	modmask: 64
+	submap: 
+	key: 6
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 116
+
+bind
+	modmask: 72
+	submap: 
+	key: 6
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 118
+
+bind
+	modmask: 64
+	submap: 
+	key: 7
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 120
+
+bind
+	modmask: 72
+	submap: 
+	key: 7
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 122
+
+bind
+	modmask: 64
+	submap: 
+	key: 8
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 124
+
+bind
+	modmask: 72
+	submap: 
+	key: 8
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 126
+
+bind
+	modmask: 64
+	submap: 
+	key: 9
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 128
+
+bind
+	modmask: 72
+	submap: 
+	key: 9
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 130
+
+bind
+	modmask: 64
+	submap: 
+	key: 0
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 132
+
+bind
+	modmask: 72
+	submap: 
+	key: 0
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 134
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86AudioRaiseVolume
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 136
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86AudioLowerVolume
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 138
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioMute
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 140
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioPlay
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 142
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioNext
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 144
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioPrev
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 146
+
+bind
+	modmask: 65
+	submap: 
+	key: A
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 8
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86MonBrightnessUp
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 13
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86MonBrightnessDown
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 17
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86TouchpadToggle
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 21
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86TouchpadOn
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 25
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86TouchpadOff
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 29
+
+binde
+	modmask: 0
+	submap: resize
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 33
+
+binde
+	modmask: 0
+	submap: resize
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 37
+
+binde
+	modmask: 0
+	submap: resize
+	key: Up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 41
+
+binde
+	modmask: 0
+	submap: resize
+	key: Down
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 45
+
+binde
+	modmask: 0
+	submap: resize
+	key: h
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 49
+
+binde
+	modmask: 0
+	submap: resize
+	key: l
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 53
+
+binde
+	modmask: 0
+	submap: resize
+	key: k
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 57
+
+binde
+	modmask: 0
+	submap: resize
+	key: j
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 61
+
+bind
+	modmask: 0
+	submap: resize
+	key: Return
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 69
+
+bind
+	modmask: 64
+	submap: resize
+	key: R
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 73
+
+bindl
+	modmask: 0
+	submap: 
+	key: switch:on:Lid Switch
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 81
+
+bindl
+	modmask: 0
+	submap: 
+	key: switch:off:Lid Switch
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 85
+
+bind
+	modmask: 64
+	submap: 
+	key: Tab
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 107
+
+bind
+	modmask: 0
+	submap: 
+	key: F3
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 111
+
+bind
+	modmask: 4
+	submap: 
+	key: Up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 115
+
+bind
+	modmask: 64
+	submap: 
+	key: Return
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 119
+
+bind
+	modmask: 64
+	submap: 
+	key: T
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 123
+
+bind
+	modmask: 64
+	submap: 
+	key: B
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 127
+
+bind
+	modmask: 64
+	submap: 
+	key: E
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 131
+
+bind
+	modmask: 64
+	submap: 
+	key: space
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 135
+
+bind
+	modmask: 64
+	submap: 
+	key: D
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 139
+
+bind
+	modmask: 64
+	submap: 
+	key: Escape
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 143
+
+bind
+	modmask: 64
+	submap: 
+	key: I
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 6
+
+bind
+	modmask: 65
+	submap: 
+	key: Return
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 15
+
+bind
+	modmask: 64
+	submap: 
+	key: L
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 23
+
+bind
+	modmask: 64
+	submap: 
+	key: grave
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 31
+
+bind
+	modmask: 64
+	submap: 
+	key: Q
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 39
+
+bind
+	modmask: 0
+	submap: 
+	key: Print
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 47
+
+bind
+	modmask: 1
+	submap: 
+	key: Print
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 55
+
+bind
+	modmask: 65
+	submap: 
+	key: S
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 63
+
+bind
+	modmask: 65
+	submap: 
+	key: T
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 71
+
+bind
+	modmask: 64
+	submap: 
+	key: G
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 79
+
+binde
+	modmask: 64
+	submap: 
+	key: W
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 89
+
+bind
+	modmask: 0
+	submap: 
+	key: F11
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 91
+
+bind
+	modmask: 1
+	submap: 
+	key: F11
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 93
+
+bind
+	modmask: 64
+	submap: 
+	key: F
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 95
+
+bind
+	modmask: 64
+	submap: 
+	key: A
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 148
+
+bind
+	modmask: 64
+	submap: 
+	key: H
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 150
+
+bind
+	modmask: 64
+	submap: 
+	key: J
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 152
+
+bind
+	modmask: 64
+	submap: 
+	key: K
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 154
+
+bind
+	modmask: 64
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 156
+
+bind
+	modmask: 65
+	submap: 
+	key: H
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 158
+
+bind
+	modmask: 65
+	submap: 
+	key: J
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 160
+
+bind
+	modmask: 65
+	submap: 
+	key: K
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 162
+
+bind
+	modmask: 65
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 164
+
+binde
+	modmask: 68
+	submap: 
+	key: H
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 166
+
+binde
+	modmask: 68
+	submap: 
+	key: L
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 168
+
+binde
+	modmask: 68
+	submap: 
+	key: K
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 170
+
+binde
+	modmask: 68
+	submap: 
+	key: J
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 172
+
+bind
+	modmask: 64
+	submap: 
+	key: mouse:272
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 174
+
+bind
+	modmask: 64
+	submap: 
+	key: mouse:273
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 176
+
+bind
+	modmask: 64
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 178
+
+bind
+	modmask: 64
+	submap: 
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 180
+
+bind
+	modmask: 65
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 182
+
+bind
+	modmask: 65
+	submap: 
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 184
+
+bind
+	modmask: 72
+	submap: 
+	key: Right
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 186
+
+bind
+	modmask: 72
+	submap: 
+	key: Left
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 188
+
+bind
+	modmask: 64
+	submap: 
+	key: 1
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 190
+
+bind
+	modmask: 65
+	submap: 
+	key: 1
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 192
+
+bind
+	modmask: 64
+	submap: 
+	key: 2
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 194
+
+bind
+	modmask: 65
+	submap: 
+	key: 2
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 196
+
+bind
+	modmask: 64
+	submap: 
+	key: 3
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 198
+
+bind
+	modmask: 65
+	submap: 
+	key: 3
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 200
+
+bind
+	modmask: 64
+	submap: 
+	key: 4
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 202
+
+bind
+	modmask: 65
+	submap: 
+	key: 4
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 204
+
+bind
+	modmask: 64
+	submap: 
+	key: 5
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 206
+
+bind
+	modmask: 65
+	submap: 
+	key: 5
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 208
+
+bind
+	modmask: 64
+	submap: 
+	key: 6
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 210
+
+bind
+	modmask: 65
+	submap: 
+	key: 6
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 212
+
+bind
+	modmask: 64
+	submap: 
+	key: 7
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 214
+
+bind
+	modmask: 65
+	submap: 
+	key: 7
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 216
+
+bind
+	modmask: 64
+	submap: 
+	key: 8
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 218
+
+bind
+	modmask: 65
+	submap: 
+	key: 8
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 220
+
+bind
+	modmask: 64
+	submap: 
+	key: 9
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 222
+
+bind
+	modmask: 65
+	submap: 
+	key: 9
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 224
+
+bind
+	modmask: 64
+	submap: 
+	key: 0
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 226
+
+bind
+	modmask: 65
+	submap: 
+	key: 0
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 228
+
+bind
+	modmask: 64
+	submap: 
+	key: M
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 230
+
+bind
+	modmask: 8
+	submap: 
+	key: space
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 232
+
+bind
+	modmask: 65
+	submap: 
+	key: O
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 234
+
+bind
+	modmask: 8
+	submap: 
+	key: 3
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 236
+
+bind
+	modmask: 8
+	submap: 
+	key: O
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 238
+
+bind
+	modmask: 8
+	submap: 
+	key: I
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 240
+
+bind
+	modmask: 8
+	submap: 
+	key: N
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 242
+
+bind
+	modmask: 8
+	submap: 
+	key: M
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 244
+
+bind
+	modmask: 12
+	submap: 
+	key: R
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 246
+
+bind
+	modmask: 13
+	submap: 
+	key: R
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 248
+
+binde
+	modmask: 64
+	submap: 
+	key: mouse_up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 249
+
+binde
+	modmask: 64
+	submap: 
+	key: mouse_down
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 250
+
+binde
+	modmask: 64
+	submap: 
+	key: equal
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 251
+
+binde
+	modmask: 64
+	submap: 
+	key: minus
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 252
+
+bind
+	modmask: 64
+	submap: 
+	key: 0
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 253
+
+bind
+	modmask: 8
+	submap: 
+	key: 6
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 255
+
+bind
+	modmask: 64
+	submap: 
+	key: U
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 257
+
+bind
+	modmask: 65
+	submap: 
+	key: U
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 259
+
+bind
+	modmask: 8
+	submap: 
+	key: Delete
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 261
+
+bind
+	modmask: 64
+	submap: 
+	key: comma
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 263
+
+bind
+	modmask: 64
+	submap: 
+	key: period
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 265
+
+bind
+	modmask: 64
+	submap: 
+	key: C
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 267
+
+bind
+	modmask: 0
+	submap: 
+	key: XF86Calculator
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 269
+
+bind
+	modmask: 64
+	submap: 
+	key: P
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 271
+
+bind
+	modmask: 64
+	submap: 
+	key: slash
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 273
+
+bind
+	modmask: 12
+	submap: 
+	key: space
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 275
+
+bind
+	modmask: 64
+	submap: 
+	key: V
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 277
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86AudioRaiseVolume
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 279
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86AudioLowerVolume
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 281
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioMute
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 283
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioPlay
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 285
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioNext
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 287
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86AudioPrev
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 289
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86MonBrightnessUp
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 291
+
+bindle
+	modmask: 0
+	submap: 
+	key: XF86MonBrightnessDown
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 293
+
+bind
+	modmask: 65
+	submap: 
+	key: E
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 295
+
+bind
+	modmask: 64
+	submap: 
+	key: Down
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 296
+
+bind
+	modmask: 64
+	submap: 
+	key: Up
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 297
+
+bindl
+	modmask: 0
+	submap: 
+	key: XF86PowerOff
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 307
+
+bindlr
+	modmask: 0
+	submap: 
+	key: XF86PowerOff
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 309
+
+bindn
+	modmask: 0
+	submap: 
+	key: mouse:272
+	keycode: 0
+	catchall: false
+	description: 
+	dispatcher: __lua
+	arg: 311
+
+

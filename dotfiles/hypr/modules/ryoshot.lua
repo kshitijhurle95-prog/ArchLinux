@@ -1,0 +1,1 @@
+-- ryoshot disabled in favor of 43PR screenshot suite

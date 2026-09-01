@@ -1,0 +1,65 @@
+# ==============================================================================
+# DUSKY KEYS CONFIGURATION
+# Location: ~/.config/dusky/settings/dusky_keys/config.toml
+# ==============================================================================
+
+[display]
+# Maximum number of key items/chords in the OSD notification buffer.
+buffer_size = 10
+
+# Display timeout in seconds before clearing the OSD notification.
+display_timeout = 2.5
+
+# Use compact symbols for modifier keys and special keys (❖, ⌃, ⌥, ⇧, ⇥, ⏎, ⌫, Esc).
+compact_symbols = true
+
+# Wrap key output in Pango HTML markup for Mako styling (set false if your mako shows raw <b> tags).
+use_pango_markup = false
+
+# Delimiter between sequential keystroke items in the buffer.
+separator = " "
+
+[chording]
+# Group held modifier keys + target key into unified chords (e.g. ❖S or ⌃C).
+enable_chording = true
+
+# Suppress emitting pure modifier keys when pressed & held down.
+# Pure modifier symbol is emitted ONLY if tapped & released alone without pressing another key.
+suppress_pure_modifiers = true
+
+[mouse]
+# Enable capturing mouse button clicks (Left, Right, Middle, Back, Forward).
+enable_mouse = false
+
+# Custom mouse button symbols (used in compact mode)
+left_click = "LMB"
+right_click = "RMB"
+middle_click = "MMB"
+side_click = "Back"
+extra_click = "Fwd"
+
+[notification]
+app_name = "dusky-keys"
+sync_id = "dusky-keys-sync"
+urgency = "low"
+
+[symbols]
+super = "❖"
+ctrl = "⌃"
+alt = "⌥"
+shift = "⇧"
+tab = "⇥"
+enter = "⏎"
+backspace = "⌫"
+delete = "⌦"
+escape = "⎋"
+space = "␣"
+caps_lock = "⇪"
+up = "↑"
+down = "↓"
+left = "←"
+right = "→"
+page_up = "PgUp"
+page_down = "PgDn"
+home = "Home"
+end = "End"

@@ -1,0 +1,121 @@
+# Dusky STT CUDA 13
+
+Dusky STT is an Arch Linux Wayland voice-typing service for CPython 3.14.6+, Linux 7.1+, ONNX Runtime 1.27, CUDA 13, and onnx-asr 0.12.
+
+## Architecture
+
+- The systemd user daemon runs from `.venv-main`, which contains CPU `onnxruntime`, NumPy, and sounddevice only.
+- The on-demand ASR process runs from `.venv-worker`, which contains `onnxruntime-gpu`, onnx-asr, and pinned PyPI CUDA 13 libraries only.
+- Audio capture uses a blocking 16 kHz mono int16 PortAudio stream routed to PipeWire through pipewire-alsa.
+- Stateful Silero VAD 6.2.1 gates phrase submission in the CPU daemon.
+- Immutable, non-executable memfd objects carry PCM through SCM_RIGHTS over an AF_UNIX SOCK_SEQPACKET socketpair.
+- The GPU worker exits after its idle deadline. Process exit, not a cache API, destroys the CUDA context.
+- Realtime output types only stable word-prefix suffixes through wtype. Two words remain held back until stable.
+- Finalized transcripts optionally pass through an s1-mini text cleaner (see [Text Cleanup](#text-cleanup)) before being typed, copied, or saved.
+
+## Extract
+
+Download every production file from the audit page into one directory. The required names are:
+
+```text
+dusky_main.py
+dusky_worker.py
+dusky_trigger.py
+dusky_installer.py
+dusky_verify.sh
+dusky-stt.service
+README.md
+```
+
+## Install
+
+```bash
+chmod 0755 dusky_installer.py dusky_main.py dusky_worker.py dusky_trigger.py dusky_verify.sh
+uv python install 3.14.6
+uv run --python 3.14.6 ./dusky_installer.py --model nemo-parakeet-tdt-0.6b-v2 --quantization int8
+```
+
+The default install performs all of the following before deployment:
+
+1. Validates Arch Linux, kernel, CPython ABI, NVIDIA driver, GPU index, and Wayland virtual-keyboard support.
+2. Installs Arch runtime packages with pacman.
+3. Creates independent CPU and CUDA Python environments.
+4. SHA-256 verifies the Silero ONNX artifact.
+5. Prefetches the selected Parakeet model.
+6. Executes CPU-only VAD inference and checks `/proc/self/maps` for CUDA objects.
+7. Executes full Parakeet inference through CUDAExecutionProvider.
+8. Atomically deploys the tested stage and verifies the systemd unit.
+
+## Text Cleanup
+
+By default the service runs an optional post-ASR cleanup pass with [s1-mini](https://huggingface.co/superwhisper/s1-mini), a small text normalizer served through a local [Ollama](https://ollama.com) instance. It strips fillers and disfluencies, and normalizes numbers, currency, and dates before a transcript is typed, placed on the Wayland clipboard, or written to a file. It is only used at finalize time, never in the realtime streaming path.
+
+### Requirements
+
+- A running Ollama server listening on `localhost:11434`.
+- An `s1-mini` model whose template begins the assistant turn with an empty thinking block (Qwen3 defaults to thinking mode, which produces blank output unless disabled).
+
+### Configuration
+
+The behavior is controlled by the `llm_*` keys in `config.json`. If they are absent they default as shown:
+
+| Key                      | Default                | Meaning                                    |
+| ------------------------ | ---------------------- | ------------------------------------------ |
+| `llm_enabled`            | `true`                 | Enable the cleanup pass; `false` disables  |
+| `llm_endpoint`           | `http://localhost:11434` | Ollama base URL                          |
+| `llm_model`              | `s1-mini`              | Ollama model used for cleanup               |
+| `llm_cleanup_style`      | `semi-formal`          | One of `casual`, `semi-casual`, `semi-formal`, `formal` |
+| `llm_cleanup_structure`  | `prose`                | One of `prose`, `lists`                    |
+| `llm_cleanup_context`    | `general`              | One of `general`, `email`                  |
+| `llm_timeout_seconds`    | `60`                   | Abort the cleanup request after this long  |
+| `llm_max_tokens`         | `2048`                 | Maximum tokens for the cleaned output      |
+
+The style, structure, and context settings are rendered into a control line that is passed to the model exactly as s1-mini expects, e.g. `[Styling: semi-formal] [Structure: prose] [Context: general]`.
+
+The service sandbox restricts network address families to `AF_UNIX AF_NETLINK AF_INET AF_INET6` so the daemon can reach the local Ollama endpoint (`localhost:11434`). If cleanup is disabled or the model is unreachable, the raw transcript is passed through unchanged and the pipeline is never blocked.
+
+## Use
+
+```bash
+# Toggle realtime dictation
+dusky_trigger
+
+# Explicit start and stop
+dusky_trigger --start --realtime
+dusky_trigger --stop
+
+# Push mode types once after finalization
+dusky_trigger --start --push
+dusky_trigger --stop
+
+# File transcription
+dusky_trigger --file ~/Downloads/audio.m4a
+
+# Service state and logs
+dusky_trigger --status
+dusky_trigger --logs
+```
+
+## Verify
+
+```bash
+dusky_verify static
+dusky_verify live
+dusky_verify d3 0000:01:00.0
+```
+
+For the live check, keep `nvtop` open in a second terminal. The script also checks the worker PID with `nvidia-smi`. D3cold can only occur when the driver, firmware, PCIe topology, display routing, and every other GPU client permit runtime suspension.
+
+## Wayland Constraint
+
+wtype requires the compositor's virtual-keyboard-v1 protocol and always targets the surface focused at each update. Dusky intentionally has no X11, uinput, or destructive-backspace fallback. Saved transcript files and the Wayland clipboard are authoritative if focus changes during dictation.
+
+## Uninstall
+
+```bash
+systemctl --user disable --now dusky-stt.service
+rm -f ~/.config/systemd/user/dusky-stt.service
+rm -f ~/.local/bin/dusky_trigger ~/.local/bin/dusky_verify
+rm -rf ~/.local/lib/dusky-stt ~/.local/state/dusky-stt
+systemctl --user daemon-reload
+```

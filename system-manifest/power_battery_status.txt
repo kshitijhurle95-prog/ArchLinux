@@ -1,0 +1,84 @@
+/org/freedesktop/UPower/devices/battery_BAT0
+/org/freedesktop/UPower/devices/line_power_ADP1
+/org/freedesktop/UPower/devices/line_power_ucsi_source_psy_USBC000o001
+/org/freedesktop/UPower/devices/DisplayDevice
+
+--- /org/freedesktop/UPower/devices/battery_BAT0 ---
+  native-path:          BAT0
+  vendor:               HP
+  model:                Primary
+  serial:               SerialNumber
+  power supply:         yes
+  updated:              Tue 01 Sep 2026 10:08:07 AM IST (3 seconds ago)
+  has history:          yes
+  has statistics:       yes
+  battery
+    present:             yes
+    rechargeable:        yes
+    state:               charging
+    warning-level:       none
+    energy:              44.167 Wh
+    energy-empty:        0 Wh
+    energy-full:         60.198 Wh
+    energy-full-design:  70.07 Wh
+    voltage-min-design:  15.4 V
+    capacity-level:      Normal
+    energy-rate:         35.25 W
+    voltage:             17.53 V
+    charge-cycles:       21
+    time to full:        27.3 minutes
+    percentage:          73%
+    capacity:            85.9112%
+    technology:          lithium-ion
+    icon-name:          'battery-full-charging-symbolic'
+  History (charge):
+    1788237457	73.000	charging
+    1788237397	72.000	charging
+  History (rate):
+    1788237487	35.250	charging
+    1788237457	35.512	charging
+  History (voltage):
+    1788237487	17.530	charging
+    1788237457	17.515	charging
+    1788237427	17.493	charging
+    1788237397	17.472	charging
+
+--- /org/freedesktop/UPower/devices/line_power_ADP1 ---
+  native-path:          ADP1
+  power supply:         yes
+  updated:              Tue 01 Sep 2026 09:39:25 AM IST (1725 seconds ago)
+  has history:          no
+  has statistics:       no
+  line-power
+    warning-level:       none
+    online:              yes
+    icon-name:          'ac-adapter-symbolic'
+
+--- /org/freedesktop/UPower/devices/line_power_ucsi_source_psy_USBC000o001 ---
+  native-path:          ucsi-source-psy-USBC000:001
+  power supply:         yes
+  updated:              Tue 01 Sep 2026 09:09:39 AM IST (3511 seconds ago)
+  has history:          no
+  has statistics:       no
+  line-power
+    warning-level:       none
+    online:              no
+    icon-name:          'ac-adapter-symbolic'
+
+--- /org/freedesktop/UPower/devices/DisplayDevice ---
+  power supply:         yes
+  updated:              Tue 01 Sep 2026 10:08:07 AM IST (3 seconds ago)
+  has history:          no
+  has statistics:       no
+  battery
+    present:             yes
+    state:               charging
+    warning-level:       none
+    energy:              44.167 Wh
+    energy-full:         60.198 Wh
+    energy-rate:         35.25 W
+    charge-cycles:       N/A
+    time to full:        27.3 minutes
+    percentage:          73%
+    icon-name:          'battery-full-charging-symbolic'
+

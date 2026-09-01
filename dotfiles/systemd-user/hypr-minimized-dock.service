@@ -1,0 +1,15 @@
+[Unit]
+Description=Hyprland Minimized Windows Dock
+PartOf=graphical-session.target
+After=graphical-session.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/kshitij/.config/hypr/scripts/minimized-dock.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=hyprland-session.target
+

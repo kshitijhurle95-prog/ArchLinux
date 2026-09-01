@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <!-- Crescent moon -->
+  <path d="M 48 16 C 30 16 16 30 16 48 C 16 66 30 80 48 80 C 60.5 80 71 73.5 77 63 C 62.5 63 50 51 50 37 C 50 26.5 55.5 17.5 63 13 C 58.5 14.8 53.5 16 48 16 Z" fill="none" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Star 1 (large top) -->
+  <path d="M 74 20 L 76.5 28 L 84.5 30 L 76.5 32 L 74 40 L 71.5 32 L 63.5 30 L 71.5 28 Z" fill="white"/>
+  <!-- Star 2 (small right) -->
+  <path d="M 86 42 L 87.8 47.2 L 93 48.5 L 87.8 49.8 L 86 55 L 84.2 49.8 L 79 48.5 L 84.2 47.2 Z" fill="white"/>
+  <!-- Star 3 (small top-left) -->
+  <path d="M 59 22 L 60.2 25 L 63.5 26 L 60.2 27 L 59 30 L 57.8 27 L 54.5 26 L 57.8 25 Z" fill="white"/>
+</svg>

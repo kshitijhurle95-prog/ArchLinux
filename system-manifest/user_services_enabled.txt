@@ -1,0 +1,20 @@
+UNIT FILE                       STATE   PRESET
+dusky_battery.service           enabled enabled
+dusky_polkit.service            enabled enabled
+hypr-minimized-dock.service     enabled enabled
+hypridle.service                enabled enabled
+hyprland-power-inhibit.service  enabled enabled
+network_meter.service           enabled enabled
+pipewire-pulse.service          enabled enabled
+pipewire.service                enabled enabled
+ryoku-livewall-guardian.service enabled enabled
+ryoku-shell.service             enabled enabled
+touchpad_gestures.service       enabled enabled
+wireplumber.service             enabled enabled
+xdg-user-dirs.service           enabled enabled
+p11-kit-server.socket           enabled enabled
+pipewire-pulse.socket           enabled enabled
+pipewire.socket                 enabled enabled
+ryoku-ai-usage.timer            enabled enabled
+
+17 unit files listed.

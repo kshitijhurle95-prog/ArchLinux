@@ -1,0 +1,75 @@
+{
+    "layer": "top",
+    "position": "top",
+    "exclusive": true, // "false" 
+    "spacing": 0,
+
+    "modules-left": ["cpu", "custom/gpu", "memory", "temperature"],
+    "modules-center": ["clock"],
+    "modules-right": ["mpris", "pulseaudio", "custom/power"],
+
+    "cpu": {
+        "format": "CPU {usage}%",
+        "interval": 2
+    },
+
+    "memory": {
+        "format": "RAM {percentage}%",
+        "tooltip-format": "{used} / {total}GiB",
+        "interval": 2
+    },
+
+    "custom/gpu": {
+        "exec": "~/.config/waybar/scripts/gpu_usage.sh",
+        "interval": 2,
+        "format": "GPU {}%",
+        "tooltip-format": "Skylake-H GT2: {}%"
+    },
+    
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
+        "critical-threshold": 80,
+        "format": " {temperatureC}°C",
+        "format-critical": " {temperatureC}°C",
+        "tooltip": true,
+        "tooltip-format": "CPU Temp: {temperatureC}°C",
+        "interval": 2,
+        "on-click": "~/.config/waybar/scripts/toggle-gammastep"
+    },
+//  "format": "{:%H:%M}",
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "today": "<b><u>{}</u></b>"
+            }
+        }
+    },
+
+    "mpris": {
+        "format": "{title} - {artist}",
+        "format-paused": "{title} - {artist}",
+        "max-length": 50,
+        "tooltip": false,
+        "interval": 2
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "Muted",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "tooltip": false,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "pgrep -x wlogout >/dev/null || wlogout -b 1 -c 20 -r 20 -L 1700 -R 1700 -T 325 -B 325"
+    }
+}

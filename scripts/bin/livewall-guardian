@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Ryoku Live Wallpaper Guardian
+# Ensures video wallpapers never stop unexpectedly and auto-restores on shell reload/restart
+
+STATE_FILE="$HOME/.local/state/ryoku-wallpaper"
+
+while true; do
+    sleep 4
+    [ -f "$STATE_FILE" ] || continue
+    current=$(cat "$STATE_FILE" 2>/dev/null | tr -d '\r\n')
+    [ -n "$current" ] || continue
+
+    case "$current" in
+        *.mp4|*.webm|*.mkv|*.mov|*.MP4|*.WEBM|*.MKV|*.MOV)
+            # It is a video wallpaper. Verify player is active
+            if ! pgrep -x mpvpaper >/dev/null 2>&1 && ! pgrep -x ryoku-livewall >/dev/null 2>&1; then
+                # Wait 1s to avoid race with manual transitions
+                sleep 1
+                if ! pgrep -x mpvpaper >/dev/null 2>&1 && ! pgrep -x ryoku-livewall >/dev/null 2>&1; then
+                    # Check state again
+                    now_state=$(cat "$STATE_FILE" 2>/dev/null | tr -d '\r\n')
+                    if [ "$now_state" = "$current" ] && [ -f "$current" ]; then
+                        /usr/bin/ryoku-shell wallpaper set "$current" >/dev/null 2>&1
+                        sleep 3
+                    fi
+                fi
+            fi
+            ;;
+        *)
+            # Static wallpaper; do nothing
+            ;;
+    esac
+done

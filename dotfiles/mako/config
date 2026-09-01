@@ -1,0 +1,9 @@
+# Fallback Mako config matching system notification theme
+anchor=bottom-right
+margin=16
+border-size=0
+border-radius=20
+background-color=#00000033
+text-color=#ffffff
+default-timeout=2000
+font=Space Grotesk 11

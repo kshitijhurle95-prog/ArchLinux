@@ -1,0 +1,143 @@
+-- ~/.config/hypr/user.lua
+-- 43PR × Dusky Linux Master Enhancements for Ryoku Shell
+
+local home = os.getenv("HOME")
+local user_scripts = home .. "/user_scripts/"
+local mainMod = "SUPER"
+
+-- 1. Look and Feel & Opacity
+hl.config({
+    general = {
+        border_size = 0,
+        ["col.active_border"] = "rgba(00000000)",
+        ["col.inactive_border"] = "rgba(00000000)",
+    },
+    decoration = {
+        rounding = 8,
+        active_opacity = 0.85,
+        inactive_opacity = 0.80,
+        fullscreen_opacity = 1.0,
+        blur = {
+            enabled = true,
+            size = 4,
+            passes = 2,
+            vibrancy = 0.18,
+            ignore_opacity = true,
+            popups = true,
+        },
+    },
+})
+
+-- Layer Blur
+hl.layer_rule({ match = { namespace = "rofi" }, blur = true, ignore_alpha = 0.15 })
+hl.layer_rule({ match = { namespace = "mako" }, blur = true, ignore_alpha = 0.15 })
+hl.layer_rule({ match = { namespace = "wlogout" }, blur = true, ignore_alpha = 0.15 })
+
+-- Window Rules & 80% Opacity for Terminal, Thunar, Settings
+hl.window_rule({ match = { class = ".*" }, opacity = "0.85 override" })
+hl.window_rule({ match = { class = ".*", fullscreen = true }, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "^(kitty|foot|Alacritty)$" }, opacity = "0.80 override" })
+hl.window_rule({ match = { class = "^(thunar|org.gnome.Nautilus)$" }, opacity = "0.80 override" })
+hl.window_rule({ match = { class = "^(pavucontrol|nm-connection-editor|blueman-manager|blueman-services)$" }, opacity = "0.80 override" })
+hl.window_rule({ match = { class = "^(dusky_tui|Terminator)$" }, opacity = "0.80 override" })
+
+-- System & Hardware Floating Rules
+hl.window_rule({ name = "float-pavucontrol", match = { class = "^(pavucontrol)$" }, float = true })
+hl.window_rule({ name = "float-blue", match = { class = "^(blueman-manager)$" }, float = true })
+hl.window_rule({ name = "float-satty", match = { class = "^(com.gabm.satty)$" }, float = true })
+hl.window_rule({ name = "float-btop", match = { class = "^(btop)$" }, float = true })
+hl.window_rule({ name = "float-terminator", match = { class = "^(Terminator)$" }, float = true })
+hl.window_rule({ name = "float-music", match = { class = "^(music_recognition.py)$" }, float = true })
+hl.window_rule({ name = "float-calc", match = { class = "^(org.gnome.Calculator|qalculate-gtk)$" }, float = true })
+hl.window_rule({ name = "float-dusky-qp", match = { class = "^(org.dusky.quickpanal)$" }, float = true, move = "10 35", pin = true })
+
+-- 2. Core Applications
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + T",      hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + B",      hl.dsp.exec_cmd("google-chrome-stable"))
+hl.bind(mainMod .. " + E",      hl.dsp.exec_cmd("thunar"))
+hl.bind(mainMod .. " + SPACE",  hl.dsp.exec_cmd("pgrep -x rofi >/dev/null && pkill -x rofi || rofi -show drun"))
+hl.bind(mainMod .. " + D",      hl.dsp.exec_cmd("pgrep -x rofi >/dev/null && pkill -x rofi || rofi -show drun"))
+
+-- 3. Lock Screen, Logout Menu & Wallpaper Selector
+hl.bind(mainMod .. " + L",      hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + GRAVE",  hl.dsp.exec_cmd("pgrep -x wlogout >/dev/null && pkill -x wlogout || wlogout -b 5 -c 20 -r 20 -L 550 -R 550 -T 460 -B 460"))
+hl.bind(mainMod .. " + Q",      hl.dsp.exec_cmd("quickshell -n -c ryowalls || quickshell -n -c hyprquickpaper || python3 " .. user_scripts .. "images/wallpaper_selector.py"))
+
+-- 4. Screenshots (PrtSc Subtle Dim -> Clipboard, Shift+PrtSc Fullscreen -> Clipboard)
+hl.bind("Print", hl.dsp.exec_cmd([[sh -c 'TMP=$(mktemp /tmp/snip-XXXXXX.png); grim -g "$(slurp -b 00000033 -c 7aa2f7aa -s 00000000 -w 1)" "$TMP" && wl-copy < "$TMP" && notify-send -a "Screenshot" -i "$TMP" "Area Copied" "Screenshot copied to clipboard" ; rm -f "$TMP"']]))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[sh -c 'TMP=$(mktemp /tmp/screen-XXXXXX.png); grim "$TMP" && wl-copy < "$TMP" && notify-send -a "Screenshot" -i "$TMP" "Fullscreen Copied" "Entire screen copied to clipboard" ; rm -f "$TMP"']]))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(user_scripts .. "images/dusky_screenshot.sh --region --freeze --annotate"))
+
+-- 5. Window Operations & Ultra-Fast Rapid Closing
+hl.bind(mainMod .. " + W",          hl.dsp.window.close(), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + W",  hl.dsp.exec_cmd("hyprctl dispatch killactive"))
+hl.bind("F11",                      hl.dsp.window.fullscreen({ mode = 0 }))
+hl.bind(mainMod .. " + F",          hl.dsp.window.fullscreen({ mode = 0 }))
+
+-- 6. AI Suite & Speech Recognition
+hl.bind(mainMod .. " + G",         hl.dsp.exec_cmd(user_scripts .. "google_image_search/google_image_search.sh"))
+hl.bind(mainMod .. " + M",         hl.dsp.exec_cmd("kitty --class music_recognition.py -e python3 " .. user_scripts .. "music/music_recognition.py"))
+hl.bind(mainMod .. " + ALT + M",   hl.dsp.exec_cmd("kitty --class music_recognition.py -e python3 " .. user_scripts .. "music/music_recognition.py"))
+hl.bind("ALT + SPACE",             hl.dsp.exec_cmd("python3 " .. user_scripts .. "tts_stt/dusky_parakeet/dusky_trigger.py --push"))
+hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("wl-copy \"$(wl-paste -p)\" && " .. user_scripts .. "tts_stt/dusky_kokoro/dusky_main.py"))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/ocr_snip.sh"))
+
+-- 7. Hardware, Displays & Audio Utilities
+hl.bind("ALT + 3",                 hl.dsp.exec_cmd("pavucontrol"))
+hl.bind("ALT + O",                 hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh --output"))
+hl.bind("ALT + I",                 hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh --input"))
+hl.bind("ALT + N",                 hl.dsp.exec_cmd(user_scripts .. "audio/dusky_in_out_source.sh --studio"))
+hl.bind("ALT + M",                 hl.dsp.exec_cmd("python3 " .. user_scripts .. "audio/mono_audio_pipewire.py"))
+hl.bind("CTRL + ALT + R",          hl.dsp.exec_cmd("python3 " .. user_scripts .. "hypr/monitor/screen_rotate.py +90"), { locked = true, repeating = true })
+hl.bind("CTRL + ALT + SHIFT + R",  hl.dsp.exec_cmd("python3 " .. user_scripts .. "hypr/monitor/screen_rotate.py -90"), { locked = true, repeating = true })
+
+-- 8. Wayclick Keyboard Sounds & OSD
+hl.bind(mainMod .. " + U",         hl.dsp.exec_cmd(user_scripts .. "wayclick/dusky_wayclick.sh"))
+hl.bind(mainMod .. " + SHIFT + U", hl.dsp.exec_cmd(user_scripts .. "mako_osd/dusky_keys/dusky_keys.sh"))
+
+-- 9. Panels, HUDs & Cheatsheet
+hl.bind(mainMod .. " + ESCAPE",    hl.dsp.exec_cmd([[gdbus call --session --dest org.dusky.quickpanal --object-path /org/dusky/quickpanal --method org.freedesktop.Application.Activate "{}" || python3 ]] .. user_scripts .. [[dusky_system/quickpanal/dusky_quickpanal.py]]))
+hl.bind("CTRL + ALT + SPACE",      hl.dsp.exec_cmd("pkill rofi; " .. user_scripts .. "rofi/dusky_glance.sh"))
+hl.bind(mainMod .. " + SLASH",     hl.dsp.exec_cmd(user_scripts .. "hypr/input/rofi_keybinds/keybindings.sh"))
+hl.bind(mainMod .. " + ALT + A",   hl.dsp.exec_cmd("rofi -show animations -modi \"animations:" .. user_scripts .. "rofi/hypr_anim.sh\""))
+
+-- 10. Small Utilities (Calculator, Emoji, Color Picker, Process Killer, btop, Blur Toggle)
+hl.bind("XF86Calculator",          hl.dsp.exec_cmd(user_scripts .. "rofi/calculator.sh"))
+hl.bind(mainMod .. " + C",         hl.dsp.exec_cmd(user_scripts .. "rofi/calculator.sh"))
+hl.bind(mainMod .. " + PERIOD",    hl.dsp.exec_cmd(user_scripts .. "rofi/emoji.sh"))
+hl.bind(mainMod .. " + COMMA",     hl.dsp.exec_cmd(user_scripts .. "rofi/emoji.sh"))
+hl.bind(mainMod .. " + P",         hl.dsp.exec_cmd("pkill hyprpicker || hyprpicker -a -f hex"))
+hl.bind("ALT + DELETE",            hl.dsp.exec_cmd("kitty --class Terminator -e " .. user_scripts .. "performance/services_and_process_terminator.sh"))
+hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("kitty --class btop -e btop"))
+hl.bind("CTRL + SHIFT + ESCAPE",   hl.dsp.exec_cmd("kitty --class btop -e btop"))
+hl.bind(mainMod .. " + SEMICOLON", hl.dsp.exec_cmd(user_scripts .. "hypr/hypr_blur_opacity_shadow_toggle.sh"))
+hl.bind(mainMod .. " + ASTERISK",  hl.dsp.exec_cmd(user_scripts .. "hypr/hypr_blur_opacity_shadow_toggle.sh"))
+
+-- 11. Magnifier Zoom
+local function zoom_step(val)
+    local curr = hl.get_config("cursor:zoom_factor") or 1.0
+    local target = curr + val
+    if target < 1.0 then target = 1.0 end
+    if target > 3.0 then target = 3.0 end
+    hl.config({ cursor = { zoom_factor = target } })
+end
+hl.bind(mainMod .. " + equal", function() zoom_step(0.25) end, { repeating = true })
+hl.bind(mainMod .. " + minus", function() zoom_step(-0.25) end, { repeating = true })
+hl.bind(mainMod .. " + 0",     function() hl.config({ cursor = { zoom_factor = 1.0 } }) end)
+hl.bind(mainMod .. " + mouse_up",   function() zoom_step(0.25) end)
+hl.bind(mainMod .. " + mouse_down", function() zoom_step(-0.25) end)
+
+-- 12. Game Mode Passthrough (ALT + 6)
+local SUBMAP_MANUAL_PT = "keybinds_disabled"
+hl.bind("ALT + 6", function()
+    hl.exec_cmd("notify-send -a 'Game Mode' -i 'input-gaming' 'Game Mode ON' 'Compositor hotkeys disabled. Press ALT+6 again to exit.'")
+    hl.dispatch(hl.dsp.submap(SUBMAP_MANUAL_PT))
+end, { description = "Toggle Game Mode", locked = true })
+
+hl.define_submap(SUBMAP_MANUAL_PT, function()
+    hl.bind("ALT + 6", function()
+        hl.exec_cmd("notify-send -a 'Game Mode' -i 'input-gaming' 'Game Mode OFF' 'Compositor hotkeys restored.'")
+        hl.dispatch(hl.dsp.submap("reset"))
+    end, { description = "Disable Game Mode", locked = true })
+end)

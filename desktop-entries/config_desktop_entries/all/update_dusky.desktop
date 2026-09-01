@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Dusky System Update
+GenericName=Git Sync & Arch Update
+Comment=Syncs local setup with latest git commit and updates system
+Keywords=system;update;upgrade;sync;git;
+Categories=System;ConsoleOnly;
+
+Exec=kitty --class update_dusky.py --title "Dusky System Update" --hold python3 /home/dusk/user_scripts/update_dusky/python/update_dusky.py
+
+Terminal=false
+Icon=system-software-update
+StartupNotify=true
+StartupWMClass=update_dusky.py

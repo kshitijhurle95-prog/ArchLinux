@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <!-- Shackle -->
+  <path d="M 31 46 V 30 C 31 18.5 39.5 10 50 10 C 60.5 10 69 18.5 69 30 V 46" fill="none" stroke="white" stroke-width="8.5" stroke-linecap="round"/>
+  <!-- Body -->
+  <rect x="21" y="43" width="58" height="46" rx="11" ry="11" fill="white"/>
+  <!-- Keyhole -->
+  <circle cx="50" cy="62" r="4.8" fill="#1c1c1c"/>
+  <polygon points="47.2,63 52.8,63 54.5,75 45.5,75" fill="#1c1c1c"/>
+</svg>
