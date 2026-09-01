@@ -56,10 +56,8 @@ hl.unbind(mainMod .. " + S")
 -- Unbind Ryoku's voice (SUPER+GRAVE conflicts with wlogout)
 hl.unbind(mainMod .. " + grave")
 
--- Bind Ryoku's overview (Mission Control) to SUPER+Tab, F3, and CTRL+Up
-hl.bind(mainMod .. " + Tab", hl.dsp.global("ryoku:overview"))
-hl.bind("F3", hl.dsp.global("ryoku:overview"))
-hl.bind("CTRL + Up", hl.dsp.global("ryoku:overview"))
+-- Unbind Ryoku's overview (SUPER+Tab conflicts)
+hl.unbind(mainMod .. " + Tab")
 
 -- Unbind Ryoku's scratchpad binds (SUPER+H/J conflict with window focus)
 hl.unbind(mainMod .. " + H")
@@ -454,3 +452,4 @@ hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exit())
 -- ═══════════════════════════════════════════════════════════════════════════
 -- Done. All 43PR × Dusky features are active.
 -- ═══════════════════════════════════════════════════════════════════════════
+hl.exec_cmd("pgrep -x waybar >/dev/null || waybar")

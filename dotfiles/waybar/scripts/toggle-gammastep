@@ -1,7 +1,6 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 if pgrep -x gammastep >/dev/null; then
     pkill -x gammastep
 else
-    nohup gammastep -O 3000 >/dev/null 2>&1 &
+    gammastep -O 4500 &
 fi
